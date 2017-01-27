@@ -12,6 +12,8 @@ builddir = "build"
 bindir = "$builddir/bin"
 objdir = "$builddir/src"
 
+output = "jvanz.so"
+
 sources = [ "linked_list" ]
 
 def write_variables(ninja):
@@ -20,6 +22,7 @@ def write_variables(ninja):
     ninja.variable("builddir", builddir)
     ninja.variable("bindir", bindir)
     ninja.variable("objdir", objdir)
+    ninja.variable("outputbin", output)
 
 
 def write_rules(ninja):
@@ -34,13 +37,14 @@ def write_build(ninja):
         ninja.build("$objdir/{src}.o".format(**locals()), "cxx",
                 "src/{src}.cpp".format(**locals()))
     ninja.comment("Create the shared library")
-    ninja.build("$bindir/libalgorithms.so", "shared", get_obj_files())
+    ninja.build("$bindir/$outputbin", "shared", get_obj_files())
 
 def get_obj_files():
     return ["$objdir/{0}.o".format(src) for src in sources]
 
-os.makedirs(builddir + "/bin")
-os.makedirs(builddir + "/src")
+if not os.path.exists(builddir):
+    os.makedirs(builddir + "/bin")
+    os.makedirs(builddir + "/src")
 
 with open(buildfile, "w") as f:
     ninja = ninja.Writer(f)
