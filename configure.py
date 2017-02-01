@@ -31,16 +31,22 @@ def write_rules(ninja):
     ninja.rule("shared", "${cxx} -shared -o ${out} ${in}",
             "Create shared library")
     ninja.rule("copy", "cp -r ${in} ${out}", "Copy files around")
+    ninja.rule("clean-all", "rm -r build", "Remove any build file")
 
 def write_build(ninja):
+    """Write build statements"""
     ninja.comment("Build all source files")
     for src in sources:
         ninja.build("$objdir/{src}.o".format(**locals()), "cxx",
                 "src/{src}.cpp".format(**locals()))
     ninja.comment("Create the shared library")
+    ninja.build("release","phony", "$bindir/$outputbin" )
     ninja.build("$bindir/$outputbin", "shared", get_obj_files())
     ninja.comment("Copy include dir to build directory")
     ninja.build("$builddir/", "copy", "include/")
+    ninja.build("clean-all", "clean-all")
+    ninja.newline()
+    ninja.default("release")
 
 def get_obj_files():
     return ["$objdir/{0}.o".format(src) for src in sources]
@@ -56,4 +62,5 @@ with open(buildfile, "w") as f:
     write_rules(ninja)
     ninja.newline()
     write_build(ninja)
+
 
