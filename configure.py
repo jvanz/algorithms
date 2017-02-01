@@ -6,7 +6,7 @@ import os
 from ninja import ninja_syntax as ninja
 
 cxx = "g++"
-cxxflags = "-c -Wall -Werror"
+cxxflags = "-c -Wall -Werror -std=c++14 -Iinclude -Isrc"
 buildfile = "build.ninja"
 builddir = "build"
 bindir = "$builddir/bin"
