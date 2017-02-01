@@ -12,7 +12,7 @@ builddir = "build"
 bindir = "$builddir/bin"
 objdir = "$builddir/src"
 
-output = "jvanz.so"
+output = "libjvanz.so"
 
 sources = [ "linked_list" ]
 
