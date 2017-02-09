@@ -8,3 +8,4 @@
 # file used by ninja to build the project
 
 pip install ninja ninja_syntax
+dnf install gtest gtest-devel
