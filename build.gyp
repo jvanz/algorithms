@@ -25,6 +25,25 @@
 			'conditions': [
 				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
 			]
+		},
+		{
+			'target_name': 'tests',
+			'type': 'executable',
+			'include_dirs': [
+				'include/'
+			],
+			'link_settings': {
+				'libraries': [
+					'-lgtest'
+				]
+			},
+			'dependencies': [
+				'jvanz'
+			],
+			'sources': [
+				'tests/dummy.cpp',
+				'tests/tests.cpp'
+			]
 		}
 	]
 }
