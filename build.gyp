@@ -42,6 +42,7 @@
 			],
 			'sources': [
 				'tests/dummy.cpp',
+				'tests/algorithm_design.cpp',
 				'tests/tests.cpp'
 			]
 		}
