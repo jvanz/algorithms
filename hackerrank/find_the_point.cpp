@@ -1,3 +1,43 @@
+/**
+ * Consider two points, p = (px,py) and q = (qx,qy). We consider the inversion
+ * or point reflection, r = (rx,ry) , of point p across point q to be a 180 rotation
+ * of point p  around q.
+ *
+ * Given n sets of points p and q, find r for each pair of points and print two
+ * space-separated integers denoting the respective values of rx and ry on a new
+ * line.
+ *
+ * Input Format
+ *
+ * The first line contains an integer, , denoting the number of sets of points.
+ * Each of the  subsequent lines contains four space-separated integers describing
+ * the respective values of px, py, qx, and qy defining points p=(px,py) and
+ * q=(qx,qy).
+ *
+ * Constraints
+ *
+ * 1 <= n <= 15
+ * -100 <= px,py,qx,qy <= 100
+ *
+ * Output Format
+ *
+ * For each pair of points p and q, print the corresponding respective values
+ * of rx and ry as two space-separated integers on a new line.
+ *
+ * Sample Input
+ *
+ * 2
+ * 0 0 1 1
+ * 1 1 2 2
+ * Sample Output
+ *
+ * 2 2
+ * 3 3[201~
+ *
+ * HackerRank has all rights reserved of the above challenge
+ * Copyright © 2017 HackerRank. All Rights Reserved
+ */
+
 #include <cmath>
 #include <cstdio>
 #include <vector>
@@ -22,12 +62,9 @@ int main(int argc, char** argv)
 		int px, py, qx, qy;
 		cin >> px >> py >> qx >> qy;
 		if (!is_point_valid(px) && !is_point_valid(py)
-			&& !is_point_valid(qx) && !is_point_valid(qy)){
+			&& !is_point_valid(qx) && !is_point_valid(qy)) {
 			return -1;
 		}
-		// TODO set the values in some useful data structure
+		cout << qx*2 - px << " " << qy*2 - py << endl;
 	}
-	// TODO find point reflection
 }
-
-
