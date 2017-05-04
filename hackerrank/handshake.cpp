@@ -18,7 +18,7 @@ int main(){
 			cout << "Invalid N" << endl;
 			return -1;
 		}
-		cout << N << endl;
+		cout << (N * (N-1)) / 2 << endl;
 	}
 	return 0;
 }
