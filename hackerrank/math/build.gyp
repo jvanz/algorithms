@@ -42,5 +42,15 @@
 				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
 			]
 		},
+		{
+			'target_name': 'army_game',
+			'type': 'executable',
+			'sources': [
+				'army_game.cpp'
+			],
+			'conditions': [
+				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
+			]
+		},
 	]
 }
