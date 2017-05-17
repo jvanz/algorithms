@@ -7,8 +7,8 @@
 	'target_defaults':{
 		'default_configuration': "Release",
 		'configurations': {
-			'Debug': {},
-			'Release': {}
+			'Debug': {'cflags': ['<@(gcc_flags) -g']},
+			'Release': {},
 		}
 	},
 	'targets': [
