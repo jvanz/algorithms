@@ -4,8 +4,7 @@
 #
 # Dependencies:
 # * ninja: it's the build system
-# * ninja_syntax: python modules used by the configure.py to create the build
-# file used by ninja to build the project
+# * gtest-devel: unit test framework
 
-pip install ninja ninja_syntax
+pip install ninja
 dnf install gtest gtest-devel
