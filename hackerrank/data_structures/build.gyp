@@ -1,7 +1,7 @@
 {
 	'variables': {
 		'gcc_flags': [
-			'-std=c++14',
+			'-std=c++1y',
 		]
 	},
 	'target_defaults':{
@@ -17,6 +17,16 @@
 			'type': 'executable',
 			'sources': [
 				'dynamic_array.cpp'
+			],
+			'conditions': [
+				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
+			]
+		},
+		{
+			'target_name': 'left_rotation',
+			'type': 'executable',
+			'sources': [
+				'left_rotation.cpp'
 			],
 			'conditions': [
 				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
