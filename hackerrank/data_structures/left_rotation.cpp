@@ -19,17 +19,16 @@ int main() {
 			return -1;
 		arr.push_back(a);
 	}
-	while (d-- > 0){
-		unsigned int front = arr.front();
-		auto first = arr.begin();
-		while (first != arr.end()-2){
-			*first = *(first+1);
-			first++;
-		}
-		arr[arr.size()-2] = arr.back();
-		arr[arr.size()-1] = front;
+	for (auto i = 0; i < d; i++){
+		if (i < arr.size())
+			arr.push_back(arr[i]);
+		else
+			arr.push_back(arr[i +(arr.size()-i)]);
 	}
-	for_each(arr.begin(), arr.end(), [] (unsigned int i) {
+	for (auto i = 0; i < arr.size()-d; i++){
+		arr[i] = arr[i+d];
+	}
+	for_each(arr.begin(), arr.end()-d, [] (unsigned int i) {
 			cout << i << " ";
 			});
 	cout << endl;
