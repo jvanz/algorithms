@@ -32,5 +32,15 @@
 				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
 			]
 		},
+		{
+			'target_name': 'sparse_arrays',
+			'type': 'executable',
+			'sources': [
+				'sparse_arrays.cpp'
+			],
+			'conditions': [
+				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
+			]
+		},
 	]
 }
