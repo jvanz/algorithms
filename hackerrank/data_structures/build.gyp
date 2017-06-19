@@ -42,5 +42,15 @@
 				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
 			]
 		},
+		{
+			'target_name': 'algorithmic_crush',
+			'type': 'executable',
+			'sources': [
+				'algorithmic_crush.cpp'
+			],
+			'conditions': [
+				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
+			]
+		},
 	]
 }
