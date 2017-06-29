@@ -22,5 +22,15 @@
 				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
 			]
 		},
+		{
+			'target_name': 'insert_node_tail',
+			'type': 'executable',
+			'sources': [
+				'insert_node_tail.cpp'
+			],
+			'conditions': [
+				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
+			]
+		},
 	]
 }
