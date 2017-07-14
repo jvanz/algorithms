@@ -32,5 +32,15 @@
 				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
 			]
 		},
+		{
+			'target_name': 'insert_node_head',
+			'type': 'executable',
+			'sources': [
+				'insert_node_head.cpp'
+			],
+			'conditions': [
+				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
+			]
+		},
 	]
 }
