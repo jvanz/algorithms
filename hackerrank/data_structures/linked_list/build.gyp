@@ -7,8 +7,12 @@
 	'target_defaults':{
 		'default_configuration': "Release",
 		'configurations': {
-			'Debug': {},
-			'Release': {}
+			'Debug': {
+				'cflags': ['<@(gcc_flags)', '-g']
+			},
+			'Release': {
+				'cflags': ['<@(gcc_flags)']
+			}
 		}
 	},
 	'targets': [
@@ -41,6 +45,13 @@
 			'conditions': [
 				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
 			]
+		},
+		{
+			'target_name': 'insert_node_position',
+			'type': 'executable',
+			'sources': [
+				'insert_node_position.cpp'
+			],
 		},
 	]
 }
