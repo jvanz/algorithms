@@ -53,5 +53,12 @@
 				'insert_node_position.cpp'
 			],
 		},
+		{
+			'target_name': 'delete_node',
+			'type': 'executable',
+			'sources': [
+				'delete_node.cpp'
+			],
+		},
 	]
 }
