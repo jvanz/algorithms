@@ -60,5 +60,12 @@
 				'delete_node.cpp'
 			],
 		},
+		{
+			'target_name': 'revert_print',
+			'type': 'executable',
+			'sources': [
+				'print_in_reverse.cpp'
+			],
+		},
 	]
 }
