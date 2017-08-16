@@ -70,8 +70,10 @@
 		{
 			'target_name': 'compare_lists',
 			'type': 'executable',
+			'libraries': ['-lgtest'],
 			'sources': [
-				'compare_list.cpp'
+				'compare_list.cpp',
+				'node.cpp'
 			],
 		},
 	]

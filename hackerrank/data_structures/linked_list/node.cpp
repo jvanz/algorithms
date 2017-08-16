@@ -29,3 +29,10 @@ Node* Reverse(Node *head)
 	head->next = nullptr;
 	return reverse;
 }
+
+bool CompareLists(Node* headA, Node* headB)
+{
+	if ((headA && !headB) || (!headA && headB))
+		return false;
+	return (!headA && !headB) || (headA->data == headB->data && CompareLists(headA->next, headB->next));
+}
