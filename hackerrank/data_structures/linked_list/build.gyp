@@ -74,5 +74,12 @@
 				'reverse_list.cpp'
 			],
 		},
+		{
+			'target_name': 'compare_lists',
+			'type': 'executable',
+			'sources': [
+				'compare_list.cpp'
+			],
+		},
 	]
 }
