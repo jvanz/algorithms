@@ -22,9 +22,6 @@
 			'sources': [
 				'print_element_linked_list.cpp'
 			],
-			'conditions': [
-				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
-			]
 		},
 		{
 			'target_name': 'insert_node_tail',
@@ -32,9 +29,6 @@
 			'sources': [
 				'insert_node_tail.cpp'
 			],
-			'conditions': [
-				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
-			]
 		},
 		{
 			'target_name': 'insert_node_head',
@@ -42,9 +36,6 @@
 			'sources': [
 				'insert_node_head.cpp'
 			],
-			'conditions': [
-				['OS=="linux"', {'cflags': ['<@(gcc_flags)']}]
-			]
 		},
 		{
 			'target_name': 'insert_node_position',
@@ -70,8 +61,10 @@
 		{
 			'target_name': 'reverse_list',
 			'type': 'executable',
+			'libraries': ['-lgtest'],
 			'sources': [
-				'reverse_list.cpp'
+				'reverse_list.cpp',
+				'node.cpp'
 			],
 		},
 		{

@@ -1,0 +1,31 @@
+#include "node.h"
+
+Node* Insert(Node *head,int data, int position)
+{
+	// create the new node
+	Node* newNode = new Node();
+	newNode->next = nullptr;
+	newNode->data = data;
+
+	if (!head || position == 0){
+		newNode->next = head;
+		return newNode;
+	}
+	Node* h = head;
+	while (--position > 0 && h->next)
+		h = h->next;
+
+	newNode->next = h->next;
+	h->next = newNode;
+	return head;
+}
+
+Node* Reverse(Node *head)
+{
+	if (!head || !head->next)
+		return head;
+	auto reverse = Reverse(head->next);
+	head->next->next = head;
+	head->next = nullptr;
+	return reverse;
+}

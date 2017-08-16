@@ -1,60 +1,33 @@
-
 #include <iostream>
+#include <gtest/gtest.h>
 
-using std::cout;
-using std::endl;
+#include "node.h"
 
-struct Node
-{
-	int data;
-	struct Node *next;
-};
+namespace {
 
-Node* Insert(Node *head,int data, int position)
-{
-	// create the new node
-	Node* newNode = new Node();
-	newNode->next = nullptr;
-	newNode->data = data;
-
-	if (!head || position == 0){
-		newNode->next = head;
-		return newNode;
-	}
-	Node* h = head;
-	while (--position > 0 && h->next)
-		h = h->next;
-
-	newNode->next = h->next;
-	h->next = newNode;
-	return head;
-}
-
-Node* Reverse(Node *head)
-{
-	if (!head || !head->next)
-		return head;
-	auto reverse = Reverse(head->next);
-	head->next->next = head;
-	head->next = nullptr;
-	return reverse;
-}
-
-int main(int argc, char** argv)
+TEST(LinkedList, ReverseList)
 {
 	Node* list = Insert(nullptr, 1, 0);
-	for (int i = 1; i < 11; i++)
+	for (int i = 1; i <= 9; i++)
 		list = Insert(list, i+1, i);
-	auto bck = list;
+	int i = 0;
+	Node* bck = list;
 	while (bck){
-		cout << bck->data << " --> ";
+		ASSERT_EQ(i+1, bck->data);
+		i++;
 		bck = bck->next;
 	}
-	cout << "NULL" <<endl;
 	list = Reverse(list);
+	i = 10;
 	while (list){
-		cout << list->data << " --> ";
+		ASSERT_EQ(list->data, i--);
 		list = list->next;
 	}
-	cout << "NULL" <<endl;
+}
+
+}
+
+int main(int argc, char **argv) {
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 }
