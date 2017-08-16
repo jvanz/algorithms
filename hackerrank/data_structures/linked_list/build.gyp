@@ -67,5 +67,12 @@
 				'print_in_reverse.cpp'
 			],
 		},
+		{
+			'target_name': 'reverse_list',
+			'type': 'executable',
+			'sources': [
+				'reverse_list.cpp'
+			],
+		},
 	]
 }
