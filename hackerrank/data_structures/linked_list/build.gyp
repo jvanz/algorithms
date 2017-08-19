@@ -33,8 +33,10 @@
 		{
 			'target_name': 'insert_node_head',
 			'type': 'executable',
+			'libraries': ['-lgtest'],
 			'sources': [
-				'insert_node_head.cpp'
+				'insert_node_head.cpp',
+				'node.cpp'
 			],
 		},
 		{

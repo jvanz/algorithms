@@ -1,33 +1,26 @@
-#include <iostream>
+#include <gtest/gtest.h>
 
-using std::cout;
-using std::endl;
+#include "node.h"
 
-struct Node {
-	int data;
-	struct Node *next;
-};
+namespace {
 
-Node* Insert(Node *head,int data)
-{
-	auto node = new Node();
-	node->data = data;
-	node->next = head;
-	return node;
-}
-
-int main(int argc, char** argv)
+TEST(LinkedList, InsertHead)
 {
 	Node* head = nullptr;
-	head = Insert(head, 1);
-	head = Insert(head, 2);
-	head = Insert(head, 3);
-	while (head){
-		cout << head->data << " --> ";
-		Node* prev = head;
+	head = InsertHead(head, 1);
+	head = InsertHead(head, 2);
+	head = InsertHead(head, 3);
+	for (auto i = 3; i >= 1; i--){
+		ASSERT_NE(head, nullptr);
+		ASSERT_EQ(head->data, i);
 		head = head->next;
-		delete prev;
 	}
-	cout << "NULL"<< endl;
+	ASSERT_EQ(head, nullptr);
 }
 
+}
+
+int main(int argc, char **argv) {
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
+}

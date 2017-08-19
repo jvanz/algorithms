@@ -36,3 +36,11 @@ bool CompareLists(Node* headA, Node* headB)
 		return false;
 	return (!headA && !headB) || (headA->data == headB->data && CompareLists(headA->next, headB->next));
 }
+
+Node* InsertHead(Node *head,int data)
+{
+	auto node = new Node();
+	node->data = data;
+	node->next = head;
+	return node;
+}
