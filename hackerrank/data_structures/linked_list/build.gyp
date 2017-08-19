@@ -26,8 +26,10 @@
 		{
 			'target_name': 'insert_node_tail',
 			'type': 'executable',
+			'libraries': ['-lgtest'],
 			'sources': [
-				'insert_node_tail.cpp'
+				'insert_node_tail.cpp',
+				'node.cpp'
 			],
 		},
 		{

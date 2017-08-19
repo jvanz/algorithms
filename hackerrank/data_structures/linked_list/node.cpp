@@ -44,3 +44,22 @@ Node* InsertHead(Node *head,int data)
 	node->next = head;
 	return node;
 }
+
+Node* InsertTail(Node *head,int data)
+{
+	// create the new node
+	Node* newNode = new Node();
+	newNode->next = nullptr;
+	newNode->data = data;
+
+	if (!head){
+		// first node, return the head
+		return newNode;
+	}
+	// find the last node
+	Node* h = head;
+	while (h->next)
+		h = h->next;
+	h->next = newNode;
+	return head;
+}

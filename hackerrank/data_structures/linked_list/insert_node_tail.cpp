@@ -1,43 +1,26 @@
+#include <gtest/gtest.h>
 
-#include <iostream>
+#include "node.h"
 
-using std::cout;
-using std::endl;
+namespace {
 
-struct Node
+TEST(LinkedList, InsertTail)
 {
-	int data;
-	struct Node *next;
-};
-
-Node* Insert(Node *head,int data)
-{
-	// create the new node
-	Node* newNode = new Node();
-	newNode->next = nullptr;
-	newNode->data = data;
-
-	if (!head){
-		// first node, return the head
-		return newNode;
-	}
-	// find the last node
-	Node* h = head;
-	while (h->next)
-		h = h->next;
-	h->next = newNode;
-	return head;
-}
-
-int main(int argc, char** argv)
-{
-	Node* list = Insert(nullptr, 1);
-	Insert(list, 4);
-	Insert(list, 2);
-	Insert(list, 3);
-	while(list){
-		cout << list->data << " -> ";
+	Node* list = InsertTail(nullptr, 1);
+	InsertTail(list, 2);
+	InsertTail(list, 3);
+	InsertTail(list, 4);
+	for (auto i = 1; i <= 4; i++){
+		ASSERT_NE(list, nullptr) << "Missing list nodes";
+		ASSERT_EQ(list->data, i) << "Invalid node value";
 		list = list->next;
 	}
-	cout << "NULL" << endl;
+	ASSERT_EQ(list, nullptr) << "The list should not have more nodes";
+}
+
+}
+
+int main(int argc, char **argv) {
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 }
