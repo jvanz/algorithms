@@ -44,8 +44,10 @@
 		{
 			'target_name': 'insert_node_position',
 			'type': 'executable',
+			'libraries': ['-lgtest'],
 			'sources': [
-				'insert_node_position.cpp'
+				'insert_node_position.cpp',
+				'node.cpp'
 			],
 		},
 		{
