@@ -63,3 +63,20 @@ Node* InsertTail(Node *head,int data)
 	h->next = newNode;
 	return head;
 }
+
+Node* Delete(Node *head, int position)
+{
+	Node* current = head;
+	Node* previous = nullptr;
+	while (position-- > 0 && current){
+		previous = current;
+		current = current->next;
+	}
+	if (previous == nullptr)
+		head = current->next;
+	else if (current)
+		previous->next = current->next;
+	if (current)
+		delete current;
+	return head;
+}

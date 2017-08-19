@@ -53,8 +53,10 @@
 		{
 			'target_name': 'delete_node',
 			'type': 'executable',
+			'libraries': ['-lgtest'],
 			'sources': [
-				'delete_node.cpp'
+				'delete_node.cpp',
+				'node.cpp'
 			],
 		},
 		{

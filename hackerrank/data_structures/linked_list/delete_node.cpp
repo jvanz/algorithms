@@ -1,66 +1,30 @@
+#include <gtest/gtest.h>
 
-#include <iostream>
+#include "node.h"
 
-using std::cout;
-using std::endl;
+namespace {
 
-struct Node
+TEST(LinkedList, DeleteNode)
 {
-	int data;
-	struct Node *next;
-};
-
-Node* Insert(Node *head,int data, int position)
-{
-	// create the new node
-	Node* newNode = new Node();
-	newNode->next = nullptr;
-	newNode->data = data;
-
-	if (!head || position == 0){
-		newNode->next = head;
-		return newNode;
-	}
-	Node* h = head;
-	while (--position > 0 && h->next)
-		h = h->next;
-
-	newNode->next = h->next;
-	h->next = newNode;
-	return head;
-}
-
-Node* Delete(Node *head, int position)
-{
-	Node* current = head;
-	Node* previous = nullptr;
-	while (position-- > 0 && current){
-		previous = current;
-		current = current->next;
-	}
-	if (previous == nullptr)
-		head = current->next;
-	else if (current)
-		previous->next = current->next;
-	if (current)
-		delete current;
-	return head;
-}
-
-int main(int argc, char** argv)
-{
-	Node* list = Insert(nullptr, 1, 0);
-	Insert(list, 2, 1);
-	Node* bck = list;
-	while(list){
-		cout << list->data << " -> ";
+	Node* list = InsertTail(nullptr, 1);
+	InsertTail(list, 2);
+	InsertTail(list, 3);
+	InsertTail(list, 4);
+	InsertTail(list, 5);
+	InsertTail(list, 6);
+	list = Delete(list, 5);
+	list = Delete(list, 0);
+	for (auto i = 2; i <= 5; i++){
+		ASSERT_NE(list, nullptr) << "Missing list nodes";
+		ASSERT_EQ(list->data, i) << "Invalid node value";
 		list = list->next;
 	}
-	cout << "NULL" << endl;
-	list = Delete(bck, 1);
-	while(list){
-		cout << list->data << " -> ";
-		list = list->next;
-	}
-	cout << "NULL" << endl;
+	ASSERT_EQ(list, nullptr) << "The list should not have more nodes";
+}
+
+}
+
+int main(int argc, char **argv) {
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 }
