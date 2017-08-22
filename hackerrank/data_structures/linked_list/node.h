@@ -13,3 +13,4 @@ Node* InsertHead(Node *head,int data);
 Node* InsertTail(Node *head,int data);
 Node* Delete(Node *head, int position);
 Node* MergeLists(Node* headA, Node* headB);
+int GetNode(Node* head, int postionFromTail);

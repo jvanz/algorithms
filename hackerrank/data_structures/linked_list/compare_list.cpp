@@ -70,6 +70,21 @@ TEST(LinkedList, MergeListWithTwoNullPointer)
 	ASSERT_EQ(nullptr, MergeLists(nullptr, nullptr));
 }
 
+TEST(LinkedList, GetNodeFromTail)
+{
+	Node* list = InsertTail(nullptr, 1);
+	InsertTail(list, 2);
+	InsertTail(list, 3);
+	InsertTail(list, 4);
+	InsertTail(list, 5);
+
+	ASSERT_EQ(5, GetNode(list, 0));
+	ASSERT_EQ(4, GetNode(list, 1));
+	ASSERT_EQ(3, GetNode(list, 2));
+	ASSERT_EQ(2, GetNode(list, 3));
+	ASSERT_EQ(1, GetNode(list, 4));
+}
+
 }
 
 int main(int argc, char **argv) {

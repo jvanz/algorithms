@@ -95,3 +95,17 @@ Node* MergeLists(Node* headA, Node* headB)
 	}
 	return merge;
 }
+
+int GetNode(Node* head, int positionFromTail)
+{
+	auto ptr1 = head;
+	auto ptr2 = head;
+	auto len = 0;
+	while (ptr1){
+		ptr1 = ptr1->next;
+		if (len > positionFromTail)
+			ptr2 = ptr2->next;
+		len += 1;
+	}
+	return ptr2->data;
+}
