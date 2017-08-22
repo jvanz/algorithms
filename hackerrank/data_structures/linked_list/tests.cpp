@@ -135,6 +135,90 @@ TEST(LinkedList, RemoveDuplicateNode)
 	ASSERT_EQ(nullptr, list) << "Invalid value";
 }
 
+TEST(LinkedList, InsertTail)
+{
+	Node* list = InsertTail(nullptr, 1);
+	InsertTail(list, 2);
+	InsertTail(list, 3);
+	InsertTail(list, 4);
+	for (auto i = 1; i <= 4; i++){
+		ASSERT_NE(list, nullptr) << "Missing list nodes";
+		ASSERT_EQ(list->data, i) << "Invalid node value";
+		list = list->next;
+	}
+	ASSERT_EQ(list, nullptr) << "The list should not have more nodes";
+}
+
+TEST(LinkedList, InsertHead)
+{
+	Node* head = nullptr;
+	head = InsertHead(head, 1);
+	head = InsertHead(head, 2);
+	head = InsertHead(head, 3);
+	for (auto i = 3; i >= 1; i--){
+		ASSERT_NE(head, nullptr);
+		ASSERT_EQ(head->data, i);
+		head = head->next;
+	}
+	ASSERT_EQ(head, nullptr);
+}
+
+TEST(LinkedList, InsertPosition)
+{
+	Node* list = Insert(nullptr, 1, 0);
+	Insert(list, 2, 1);
+	Insert(list, 3, 2);
+	Insert(list, 4, 3);
+	Insert(list, 5, 4);
+	list = Insert(list, 6, 0);
+	ASSERT_EQ(list->data, 6);
+	list = list->next;
+	for (auto i = 1; i <= 5; i++){
+		ASSERT_NE(list, nullptr) << "Missing list nodes";
+		ASSERT_EQ(list->data, i) << "Invalid node value";
+		list = list->next;
+	}
+	ASSERT_EQ(list, nullptr) << "The list should not have more nodes";
+}
+
+TEST(LinkedList, ReverseList)
+{
+	Node* list = Insert(nullptr, 1, 0);
+	for (int i = 1; i <= 9; i++)
+		list = Insert(list, i+1, i);
+	int i = 0;
+	Node* bck = list;
+	while (bck){
+		ASSERT_EQ(i+1, bck->data);
+		i++;
+		bck = bck->next;
+	}
+	list = Reverse(list);
+	i = 10;
+	while (list){
+		ASSERT_EQ(list->data, i--);
+		list = list->next;
+	}
+}
+
+TEST(LinkedList, DeleteNode)
+{
+	Node* list = InsertTail(nullptr, 1);
+	InsertTail(list, 2);
+	InsertTail(list, 3);
+	InsertTail(list, 4);
+	InsertTail(list, 5);
+	InsertTail(list, 6);
+	list = Delete(list, 5);
+	list = Delete(list, 0);
+	for (auto i = 2; i <= 5; i++){
+		ASSERT_NE(list, nullptr) << "Missing list nodes";
+		ASSERT_EQ(list->data, i) << "Invalid node value";
+		list = list->next;
+	}
+	ASSERT_EQ(list, nullptr) << "The list should not have more nodes";
+}
+
 }
 
 int main(int argc, char **argv) {

@@ -24,42 +24,6 @@
 			],
 		},
 		{
-			'target_name': 'insert_node_tail',
-			'type': 'executable',
-			'libraries': ['-lgtest'],
-			'sources': [
-				'insert_node_tail.cpp',
-				'node.cpp'
-			],
-		},
-		{
-			'target_name': 'insert_node_head',
-			'type': 'executable',
-			'libraries': ['-lgtest'],
-			'sources': [
-				'insert_node_head.cpp',
-				'node.cpp'
-			],
-		},
-		{
-			'target_name': 'insert_node_position',
-			'type': 'executable',
-			'libraries': ['-lgtest'],
-			'sources': [
-				'insert_node_position.cpp',
-				'node.cpp'
-			],
-		},
-		{
-			'target_name': 'delete_node',
-			'type': 'executable',
-			'libraries': ['-lgtest'],
-			'sources': [
-				'delete_node.cpp',
-				'node.cpp'
-			],
-		},
-		{
 			'target_name': 'revert_print',
 			'type': 'executable',
 			'sources': [
@@ -67,20 +31,11 @@
 			],
 		},
 		{
-			'target_name': 'reverse_list',
+			'target_name': 'tests',
 			'type': 'executable',
 			'libraries': ['-lgtest'],
 			'sources': [
-				'reverse_list.cpp',
-				'node.cpp'
-			],
-		},
-		{
-			'target_name': 'compare_lists',
-			'type': 'executable',
-			'libraries': ['-lgtest'],
-			'sources': [
-				'compare_list.cpp',
+				'tests.cpp',
 				'node.cpp'
 			],
 		},
