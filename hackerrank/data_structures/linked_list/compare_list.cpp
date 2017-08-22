@@ -23,6 +23,53 @@ TEST(LinkedList, CompareList)
 	ASSERT_FALSE(CompareLists(list, nullptr));
 }
 
+TEST(LinkedList, MergeList)
+{
+	Node* list = InsertTail(nullptr, 2);
+	InsertTail(list, 4);
+	InsertTail(list, 7);
+	Node* list2 = InsertTail(nullptr, 3);
+	InsertTail(list2, 10);
+	InsertTail(list2, 15);
+	Node* merge = MergeLists(list, list2);
+	ASSERT_NE(nullptr, merge) << "Node cannot be null";
+	ASSERT_EQ(2, merge->data) << "Invalid value";
+	merge = merge->next;
+	ASSERT_EQ(3, merge->data) << "Invalid value";
+	merge = merge->next;
+	ASSERT_EQ(4, merge->data) << "Invalid value";
+	merge = merge->next;
+	ASSERT_EQ(7, merge->data) << "Invalid value";
+	merge = merge->next;
+	ASSERT_EQ(10, merge->data) << "Invalid value";
+	merge = merge->next;
+	ASSERT_EQ(15, merge->data) << "Invalid value";
+	merge = merge->next;
+	ASSERT_EQ(nullptr, merge) << "Node should be null";
+}
+
+TEST(LinkedList, MergeListWithNullPointer)
+{
+	Node* list = InsertTail(nullptr, 2);
+	InsertTail(list, 4);
+	InsertTail(list, 7);
+	Node* list2 = nullptr;
+	Node* merge = MergeLists(list, list2);
+	ASSERT_NE(nullptr, merge) << "Node cannot be null";
+	ASSERT_EQ(2, merge->data) << "Invalid value";
+	merge = merge->next;
+	ASSERT_EQ(4, merge->data) << "Invalid value";
+	merge = merge->next;
+	ASSERT_EQ(7, merge->data) << "Invalid value";
+	merge = merge->next;
+	ASSERT_EQ(nullptr, merge) << "Node should be null";
+}
+
+TEST(LinkedList, MergeListWithTwoNullPointer)
+{
+	ASSERT_EQ(nullptr, MergeLists(nullptr, nullptr));
+}
+
 }
 
 int main(int argc, char **argv) {

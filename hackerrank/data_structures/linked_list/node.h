@@ -12,3 +12,4 @@ bool CompareLists(Node* headA, Node* headB);
 Node* InsertHead(Node *head,int data);
 Node* InsertTail(Node *head,int data);
 Node* Delete(Node *head, int position);
+Node* MergeLists(Node* headA, Node* headB);

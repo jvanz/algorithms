@@ -80,3 +80,18 @@ Node* Delete(Node *head, int position)
 		delete current;
 	return head;
 }
+
+Node* MergeLists(Node* headA, Node* headB)
+{
+	if (!headA || !headB)
+		return headA ? headA : headB;
+	Node* merge;
+	if (headA->data < headB->data) {
+		merge = headA;
+		merge->next = MergeLists(headA->next, headB);
+	} else {
+		merge = headB;
+		merge->next = MergeLists(headA, headB->next);
+	}
+	return merge;
+}
