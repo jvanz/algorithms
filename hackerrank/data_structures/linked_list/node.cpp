@@ -109,3 +109,17 @@ int GetNode(Node* head, int positionFromTail)
 	}
 	return ptr2->data;
 }
+
+Node* RemoveDuplicates(Node* head)
+{
+	if (!head || !head->next)
+		return head;
+	auto ptr1 = RemoveDuplicates(head->next);
+	if (head->data == ptr1->data){
+		delete head;
+		return ptr1;
+	} else {
+		head->next = ptr1;
+	}
+	return head;
+}

@@ -85,6 +85,56 @@ TEST(LinkedList, GetNodeFromTail)
 	ASSERT_EQ(1, GetNode(list, 4));
 }
 
+TEST(LinkedList, RemoveDuplicateNode)
+{
+	ASSERT_EQ(nullptr, RemoveDuplicates(nullptr));
+
+	Node* list = InsertTail(nullptr, 1);
+	InsertTail(list, 1);
+	InsertTail(list, 2);
+	list = RemoveDuplicates(list);
+
+	ASSERT_EQ(1, list->data) << "Invalid value";
+	list = list->next;
+	ASSERT_EQ(2, list->data) << "Invalid value";
+	list = list->next;
+	ASSERT_EQ(nullptr, list) << "Invalid value";
+
+	list = InsertTail(nullptr, 1);
+	InsertTail(list, 2);
+	InsertTail(list, 3);
+	InsertTail(list, 3);
+	InsertTail(list, 4);
+	list = RemoveDuplicates(list);
+
+	ASSERT_EQ(1, list->data) << "Invalid value";
+	list = list->next;
+	ASSERT_EQ(2, list->data) << "Invalid value";
+	list = list->next;
+	ASSERT_EQ(3, list->data) << "Invalid value";
+	list = list->next;
+	ASSERT_EQ(4, list->data) << "Invalid value";
+	list = list->next;
+	ASSERT_EQ(nullptr, list) << "Invalid value";
+
+	list = InsertTail(nullptr, 1);
+	InsertTail(list, 2);
+	InsertTail(list, 3);
+	InsertTail(list, 4);
+	InsertTail(list, 4);
+	list = RemoveDuplicates(list);
+
+	ASSERT_EQ(1, list->data) << "Invalid value";
+	list = list->next;
+	ASSERT_EQ(2, list->data) << "Invalid value";
+	list = list->next;
+	ASSERT_EQ(3, list->data) << "Invalid value";
+	list = list->next;
+	ASSERT_EQ(4, list->data) << "Invalid value";
+	list = list->next;
+	ASSERT_EQ(nullptr, list) << "Invalid value";
+}
+
 }
 
 int main(int argc, char **argv) {
