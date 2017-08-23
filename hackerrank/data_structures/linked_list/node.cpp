@@ -123,3 +123,16 @@ Node* RemoveDuplicates(Node* head)
 	}
 	return head;
 }
+
+bool HasCycle(Node* head)
+{
+	auto tortoise = head;
+	auto habbit = head;
+	while (habbit && habbit->next){
+		habbit = habbit->next->next;
+		if (habbit == tortoise)
+			return true;
+		tortoise = tortoise->next;
+	}
+	return false;
+}

@@ -19,3 +19,8 @@ int GetNode(Node* head, int postionFromTail);
  * Remove duplicates values from a sorted linked list
  */
 Node* RemoveDuplicates(Node* head);
+
+/**
+ * Detects cycle in the given linked list
+ */
+bool HasCycle(Node* head);

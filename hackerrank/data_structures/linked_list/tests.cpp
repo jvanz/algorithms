@@ -219,6 +219,25 @@ TEST(LinkedList, DeleteNode)
 	ASSERT_EQ(list, nullptr) << "The list should not have more nodes";
 }
 
+TEST(LinkedList, HasCycle)
+{
+	Node* list = InsertTail(nullptr, 1);
+	InsertTail(list, 2);
+	list->next->next = list;
+	ASSERT_TRUE(HasCycle(list)) << "List should has cycles";
+
+	list = InsertTail(nullptr, 1);
+	ASSERT_FALSE(HasCycle(list)) << "List should has cycles";
+
+	list = InsertTail(nullptr, 1);
+	InsertTail(list, 2);
+	InsertTail(list, 3);
+	ASSERT_FALSE(HasCycle(list)) << "List should not has cycles";
+	// create a cycle
+	list->next->next->next = list->next;
+	ASSERT_TRUE(HasCycle(list)) << "List should has cycles";
+}
+
 }
 
 int main(int argc, char **argv) {
