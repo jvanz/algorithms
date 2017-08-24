@@ -238,6 +238,36 @@ TEST(LinkedList, HasCycle)
 	ASSERT_TRUE(HasCycle(list)) << "List should has cycles";
 }
 
+using namespace std;
+
+TEST(DoublyLinkedList, InsertSortedDoublyLinkedList)
+{
+	Node* list = InsertSortedDoublyLinkedList(nullptr, 4);
+	ASSERT_EQ(4, list->data);
+	list = InsertSortedDoublyLinkedList(list, 2);
+	ASSERT_EQ(2, list->data);
+	list = InsertSortedDoublyLinkedList(list, 9);
+	ASSERT_EQ(2, list->data);
+	list = InsertSortedDoublyLinkedList(list, 10);
+	ASSERT_EQ(2, list->data);
+	list = InsertSortedDoublyLinkedList(list, 1);
+	ASSERT_EQ(1, list->data);
+	list = InsertSortedDoublyLinkedList(list, 7);
+	ASSERT_EQ(1, list->data);
+	list = list->next;
+	ASSERT_EQ(2, list->data);
+	list = list->next;
+	ASSERT_EQ(4, list->data);
+	list = list->next;
+	ASSERT_EQ(7, list->data);
+	list = list->next;
+	ASSERT_EQ(9, list->data);
+	list = list->next;
+	ASSERT_EQ(10, list->data);
+	list = list->next;
+	ASSERT_EQ(nullptr, list);
+}
+
 }
 
 int main(int argc, char **argv) {

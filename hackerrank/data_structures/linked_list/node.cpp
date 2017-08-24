@@ -5,6 +5,7 @@ Node* Insert(Node *head,int data, int position)
 	// create the new node
 	Node* newNode = new Node();
 	newNode->next = nullptr;
+	newNode->prev = nullptr;
 	newNode->data = data;
 
 	if (!head || position == 0){
@@ -42,6 +43,7 @@ Node* InsertHead(Node *head,int data)
 	auto node = new Node();
 	node->data = data;
 	node->next = head;
+	node->prev = nullptr;
 	return node;
 }
 
@@ -50,6 +52,7 @@ Node* InsertTail(Node *head,int data)
 	// create the new node
 	Node* newNode = new Node();
 	newNode->next = nullptr;
+	newNode->prev = nullptr;
 	newNode->data = data;
 
 	if (!head){
@@ -135,4 +138,38 @@ bool HasCycle(Node* head)
 		tortoise = tortoise->next;
 	}
 	return false;
+}
+
+Node* InsertSortedDoublyLinkedList(Node* head, int data)
+{
+	if (!head){
+		Node* newNode = new Node();
+		newNode->next = nullptr;
+		newNode->prev = nullptr;
+		newNode->data = data;
+		return newNode;
+	}
+	if (head->data >= data){
+		Node* newNode = new Node();
+		newNode->data = data;
+		if (head->prev){
+			head->prev->next = newNode;
+			newNode->prev = head->prev;
+			newNode->next = head;
+			head->prev = newNode;
+			head = newNode;
+		} else {
+			newNode->next = head;
+			head->prev = newNode;
+			head = newNode;
+		}
+	} else if (!head->next){
+		Node* newNode = new Node();
+		newNode->data = data;
+		newNode->prev = head;
+		head->next = newNode;
+	} else {
+		head->next = InsertSortedDoublyLinkedList(head->next, data);
+	}
+	return head;
 }

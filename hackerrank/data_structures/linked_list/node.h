@@ -3,7 +3,8 @@
 struct Node
 {
 	int data;
-	struct Node *next;
+	struct Node* next;
+	struct Node* prev;
 };
 
 Node* Insert(Node *head,int data, int position);
@@ -24,3 +25,8 @@ Node* RemoveDuplicates(Node* head);
  * Detects cycle in the given linked list
  */
 bool HasCycle(Node* head);
+
+/**
+ * Insert a new node with the given data in the given double linked list
+ */
+Node* InsertSortedDoublyLinkedList(Node* head, int data);
