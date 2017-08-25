@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "node.h"
 
 Node* Insert(Node *head,int data, int position)
@@ -188,4 +190,13 @@ Node* ReverseDoubleLinkedList(Node* head)
 	head->prev = head->next;
 	head->next = old_prev;
 	return ReverseDoubleLinkedList(old_next);
+}
+
+void Print(Node* head)
+{
+	while (head){
+		std::cout << head->data << " --> ";
+		head = head->next;
+	}
+	std::cout << "NULL" << std::endl;
 }
