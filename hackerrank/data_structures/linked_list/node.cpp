@@ -173,3 +173,19 @@ Node* InsertSortedDoublyLinkedList(Node* head, int data)
 	}
 	return head;
 }
+
+Node* ReverseDoubleLinkedList(Node* head)
+{
+	if (!head)
+		return head;
+	if (!head->next){
+		head->next = head->prev;
+		head->prev = nullptr;
+		return head;
+	}
+	auto old_next = head->next;
+	auto old_prev = head->prev;
+	head->prev = head->next;
+	head->next = old_prev;
+	return ReverseDoubleLinkedList(old_next);
+}

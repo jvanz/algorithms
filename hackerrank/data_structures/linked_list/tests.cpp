@@ -268,6 +268,33 @@ TEST(DoublyLinkedList, InsertSortedDoublyLinkedList)
 	ASSERT_EQ(nullptr, list);
 }
 
+TEST(DoubleLinkedList, ReverseDoubleLinkedList)
+{
+	Node* list = InsertSortedDoublyLinkedList(nullptr, 4);
+	list = InsertSortedDoublyLinkedList(list, 2);
+	list = InsertSortedDoublyLinkedList(list, 9);
+	list = InsertSortedDoublyLinkedList(list, 10);
+	list = InsertSortedDoublyLinkedList(list, 1);
+	list = InsertSortedDoublyLinkedList(list, 7);
+	list = ReverseDoubleLinkedList(list);
+
+	ASSERT_EQ(10, list->data);
+	list = list->next;
+	ASSERT_EQ(9, list->data);
+	list = list->next;
+	ASSERT_EQ(7, list->data);
+	list = list->next;
+	ASSERT_EQ(4, list->data);
+	list = list->next;
+	ASSERT_EQ(2, list->data);
+	list = list->next;
+	ASSERT_EQ(1, list->data);
+	list = list->next;
+	ASSERT_EQ(nullptr, list);
+
+	ASSERT_EQ(nullptr, ReverseDoubleLinkedList(nullptr));
+}
+
 }
 
 int main(int argc, char **argv) {

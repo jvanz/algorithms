@@ -30,3 +30,8 @@ bool HasCycle(Node* head);
  * Insert a new node with the given data in the given double linked list
  */
 Node* InsertSortedDoublyLinkedList(Node* head, int data);
+
+/**
+ * Reverse the order of the given double linked list
+ */
+Node* ReverseDoubleLinkedList(Node* head);
