@@ -176,7 +176,7 @@ Node* InsertSortedDoublyLinkedList(Node* head, int data)
 	return head;
 }
 
-Node* ReverseDoubleLinkedList(Node* head)
+Node* ReverseDoublyLinkedList(Node* head)
 {
 	if (!head)
 		return head;

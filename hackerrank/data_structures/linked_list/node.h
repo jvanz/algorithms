@@ -34,6 +34,6 @@ Node* InsertSortedDoublyLinkedList(Node* head, int data);
 /**
  * Reverse the order of the given double linked list
  */
-Node* ReverseDoubleLinkedList(Node* head);
+Node* ReverseDoublyLinkedList(Node* head);
 
 void Print(Node* head);
