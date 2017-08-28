@@ -189,7 +189,7 @@ Node* ReverseDoublyLinkedList(Node* head)
 	auto old_prev = head->prev;
 	head->prev = head->next;
 	head->next = old_prev;
-	return ReverseDoubleLinkedList(old_next);
+	return ReverseDoublyLinkedList(old_next);
 }
 
 void Print(Node* head)

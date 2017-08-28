@@ -274,7 +274,7 @@ TEST(DoublyLinkedList, ReverseDoublyLinkedList)
 	list = InsertSortedDoublyLinkedList(list, 10);
 	list = InsertSortedDoublyLinkedList(list, 1);
 	list = InsertSortedDoublyLinkedList(list, 7);
-	list = ReverseDoubleLinkedList(list);
+	list = ReverseDoublyLinkedList(list);
 
 	ASSERT_EQ(10, list->data);
 	list = list->next;
@@ -290,7 +290,7 @@ TEST(DoublyLinkedList, ReverseDoublyLinkedList)
 	list = list->next;
 	ASSERT_EQ(nullptr, list);
 
-	ASSERT_EQ(nullptr, ReverseDoubleLinkedList(nullptr));
+	ASSERT_EQ(nullptr, ReverseDoublyLinkedList(nullptr));
 }
 
 }
