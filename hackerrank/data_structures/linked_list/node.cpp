@@ -200,3 +200,20 @@ void Print(Node* head)
 	}
 	std::cout << "NULL" << std::endl;
 }
+
+int FindMergeNode(Node* headA, Node* headB)
+{
+	auto curA = headA;
+	auto curB = headB;
+	while (curA->data != curB->data){
+		if (curA->next)
+			curA = curA->next;
+		else
+			curA = headB;
+		if (curB->next)
+			curB = curB->next;
+		else
+			curB = headA;
+	}
+	return curB->data;
+}

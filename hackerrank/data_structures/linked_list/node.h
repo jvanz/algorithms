@@ -37,3 +37,8 @@ Node* InsertSortedDoublyLinkedList(Node* head, int data);
 Node* ReverseDoublyLinkedList(Node* head);
 
 void Print(Node* head);
+
+/**
+ * Finds and returns the data value of the node where the two lists merge
+ */
+int FindMergeNode(Node* headA, Node* headB);
