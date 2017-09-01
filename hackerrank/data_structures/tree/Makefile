@@ -16,3 +16,7 @@ run-release:
 
 run-debug:
 	gdb ./out/Debug/tests
+
+clean:
+	ninja -C out/Release -t clean
+	ninja -C out/Debug -t clean
