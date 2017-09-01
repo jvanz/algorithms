@@ -17,5 +17,14 @@ void PrintPreOrder(struct node* root)
 
 }
 
+void PrintPostOrder(struct node* root)
+{
+	if (root->left)
+		PrintPostOrder(root->left);
+	if (root->right)
+		PrintPostOrder(root->right);
+	cout << root->data;
+}
+
 }
 }
