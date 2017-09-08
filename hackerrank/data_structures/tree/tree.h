@@ -12,6 +12,7 @@ struct node
 
 void PrintPreOrder(struct node* root);
 void PrintPostOrder(struct node* root);
+void PrintInOrder(struct node* root);
 
 }
 }

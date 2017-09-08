@@ -48,6 +48,28 @@ TEST(Tree, PrintPostOrder)
 	PrintPostOrder(one);
 }
 
+TEST(Tree, PrintInOrder)
+{
+	auto one = new struct node();
+	auto two = new struct node();
+	auto three = new struct node();
+	auto four = new struct node();
+	auto five = new struct node();
+	auto six = new struct node();
+	one->data = 1;
+	two->data = 2;
+	three->data = 3;
+	four->data = 4;
+	five->data = 5;
+	six->data = 6;
+	one->right = two;
+	two->right = five;
+	five->left = three;
+	five->right = six;
+	three->right = four;
+	PrintInOrder(one);
+}
+
 }
 
 int main(int argc, char **argv) {
