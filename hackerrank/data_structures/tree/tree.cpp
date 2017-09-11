@@ -35,5 +35,17 @@ void PrintInOrder(struct node* root)
 		PrintInOrder(root->right);
 }
 
+int GetHeight(struct node* root)
+{
+	if (!root)
+		return -1;
+	auto lheight = GetHeight(root->left);
+	auto rheight = GetHeight(root->right);
+	if (lheight > rheight)
+		return lheight + 1;
+	else
+		return  rheight + 1;
+}
+
 }
 }
