@@ -96,6 +96,43 @@ TEST(Tree, GetHeight)
 	ASSERT_EQ(3, height);
 }
 
+TEST(Tree, Insert)
+{
+	using std::cout;
+	using std::endl;
+	auto root = Insert(nullptr, 4);
+	root = Insert(root, 2);
+	root = Insert(root, 3);
+	root = Insert(root, 1);
+	root = Insert(root, 6);
+	root = Insert(root, 5);
+	root = Insert(root, 7);
+	// validate tree structure
+	ASSERT_NE(nullptr, root);
+	ASSERT_NE(nullptr, root->left);
+	ASSERT_NE(nullptr, root->left->left);
+	ASSERT_NE(nullptr, root->left->right);
+	ASSERT_EQ(nullptr, root->left->left->left);
+	ASSERT_EQ(nullptr, root->left->left->right);
+	ASSERT_EQ(nullptr, root->left->right->left);
+	ASSERT_EQ(nullptr, root->left->right->right);
+	ASSERT_NE(nullptr, root->right);
+	ASSERT_NE(nullptr, root->right->left);
+	ASSERT_NE(nullptr, root->right->right);
+	ASSERT_EQ(nullptr, root->right->left->left);
+	ASSERT_EQ(nullptr, root->right->left->right);
+	ASSERT_EQ(nullptr, root->right->right->left);
+	ASSERT_EQ(nullptr, root->right->right->right);
+	// validate node data
+	ASSERT_EQ(4, root->data);
+	ASSERT_EQ(2, root->left->data);
+	ASSERT_EQ(1, root->left->left->data);
+	ASSERT_EQ(3, root->left->right->data);
+	ASSERT_EQ(6, root->right->data);
+	ASSERT_EQ(5, root->right->left->data);
+	ASSERT_EQ(7, root->right->right->data);
+}
+
 }
 
 int main(int argc, char **argv) {

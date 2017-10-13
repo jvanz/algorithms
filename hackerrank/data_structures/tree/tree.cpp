@@ -47,5 +47,21 @@ int GetHeight(struct node* root)
 		return  rheight + 1;
 }
 
+struct node* Insert(struct node* root, int value)
+{
+	if (!root) {
+		auto root = new struct node();
+		root->left = nullptr;
+		root->right = nullptr;
+		root->data = value;
+		return root;
+	}
+	if (root->data > value)
+		root->left = Insert(root->left, value);
+	else
+		root->right = Insert(root->right, value);
+	return root;
+}
+
 }
 }
