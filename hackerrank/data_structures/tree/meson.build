@@ -1,9 +1,12 @@
-project('algorithms-tree', 'cpp', version: '0.9.0')
+project('algorithms-tree', 'cpp', version: '0.9.0', 
+	default_options : ['cpp_std=c++14'])
 
-sources = ['tree.cpp', 'tree.h', 'tests.cpp']
+sources = ['tree.hh', 'tests.cc']
 
 dependencies = [dependency('gtest')]
 
-executable('tests', 
+tests = executable('tests', 
 	sources, 
 	dependencies: dependencies)
+
+test('PreOrderIterator', tests, args: ['--gtest_filter=Tree.PreOrderIterator'] )
