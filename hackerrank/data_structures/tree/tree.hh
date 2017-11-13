@@ -2,6 +2,7 @@
 #define _TREE_HH
 
 #include <iostream>
+#include <stack>
 
 using namespace std;
 
@@ -9,6 +10,7 @@ namespace jvanz {
 namespace tree {
 
 /// Binary tree data structure
+// TODO add template support
 class TreeNode
 {
 public:
@@ -21,45 +23,48 @@ public:
 	class iterator : public std::iterator<std::forward_iterator_tag, TreeNode>
 	{
 		private:
-			TreeNode* p;
-			friend class const_iterator;
+			stack<TreeNode*> st;
 		public:
-			iterator(TreeNode* n) : p(n) { };
-			iterator(const iterator& poi) : p(poi.p) { };
+			iterator(TreeNode* n)
+			{ 
+				st.push(n);
+			};
+
+			iterator(const iterator& poi) : st(poi.st) { };
 
 			iterator& operator++()
 			{ 
-				cout << "operator++" << endl;
-				if (this->p->left)
-					this->p = p->left;
-				else if (p->right)
-					this->p = p->right;
-				else
-					this->p = nullptr;
+				auto top = this->st.top();
+				this->st.pop();
+				if (top->right)
+					this->st.push(top->right);
+				if (top->left)
+					this->st.push(top->left);
 				return *this; 
 			};
 
 			iterator operator++(int)
 			{ 
-				cout << "operator++(int)" << endl;
 				iterator tmp(*this);
 				operator++(); 
 				return tmp;
 			};
+
 			bool operator==(const iterator& rhs) const
 			{
-				cout << "operator==" << endl;
-				return this->p==rhs.p;
+				return this->st.size() > 0 && rhs.st.size() > 0
+					&& this->st.top() == rhs.st.top();
 			};
+
 			bool operator!=(const iterator& rhs) const
 			{
-				cout << "operator!=" << endl;
-				return this->p!=rhs.p;
+				return this->st.size() > 0 && rhs.st.size() > 0
+					&& this->st.top() != rhs.st.top();
 			};
+
 			TreeNode& operator*()
 			{ 
-				cout << "operator*" << endl;
-				return *(this->p); 
+				return *(this->st.top());
 			};
 
 	}; // iterator class
@@ -103,9 +108,7 @@ public:
 
 	// TreeNode methods
 	iterator begin() { return iterator(this); };
-	iterator end() { return nullptr; };
-	//const_iterator begin() { return const_iterator(this); };
-	//const_iterator end() { return nullptr; };
+	iterator end() { return iterator(nullptr); };
 
 }; // TreeNode class
 
