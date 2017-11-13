@@ -69,42 +69,6 @@ public:
 
 	}; // iterator class
 
-	//class const_iterator : public std::iterator<std::forward_iterator_tag, TreeNode>
-	//{
-		//private:
-			//TreeNode* p;
-		//public:
-			//iterator(TreeNode* n) : p(n) { };
-			//iterator(const iterator& poi) : p(poi.p) { };
-
-			//iterator& operator++()
-			//{ 
-				//if (this->p->left)
-					//this->p = p->left;
-				//else if (p->right)
-					//this->p = p->right;
-				//return *this; 
-			//};
-
-			//iterator operator++(int)
-			//{ 
-				//iterator tmp(*this);
-				//operator++(); 
-				//return tmp;
-			//};
-			//bool operator==(const iterator& rhs) const
-			//{
-				//return this->p==rhs.p;
-			//};
-			//bool operator!=(const iterator& rhs) const
-			//{
-				//return this->p!=rhs.p;
-			//};
-			//TreeNode& operator*()
-			//{ 
-				//return *(this->p); 
-			//};
-	//};
 
 	// TreeNode methods
 	iterator begin() { return iterator(this); };
