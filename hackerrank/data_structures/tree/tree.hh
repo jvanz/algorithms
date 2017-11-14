@@ -1,7 +1,7 @@
 #ifndef _TREE_HH
 #define _TREE_HH
 
-#include <iostream>
+#include <functional>
 #include <stack>
 
 using namespace std;
@@ -75,6 +75,17 @@ public:
 	iterator end() { return iterator(nullptr); };
 
 }; // TreeNode class
+
+void pre_order_iterator(TreeNode* root, function<void(int)> func)
+{
+	if (!root)
+		return;
+	func(root->data);
+	if (root->left)
+		pre_order_iterator(root->left, func);
+	if (root->right)
+		pre_order_iterator(root->right, func);
+}
 
 } } // namespaces
 
