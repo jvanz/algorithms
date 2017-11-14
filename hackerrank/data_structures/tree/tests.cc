@@ -122,31 +122,24 @@ TEST(Tree, in_order_iterator)
 	ASSERT_EQ(9, x);
 }
 
-//TEST(Tree, GetHeight)
-//{
-	//auto one = new struct node();
-	//auto two = new struct node();
-	//auto three = new struct node();
-	//auto four = new struct node();
-	//auto five = new struct node();
-	//auto six = new struct node();
-	//auto seven = new struct node();
-	//one->data = 1;
-	//two->data = 2;
-	//three->data = 3;
-	//four->data = 4;
-	//five->data = 5;
-	//six->data = 6;
-	//seven->data = 7;
-	//two->left = one;
-	//three->left = two;
-	//three->right = five;
-	//five->left = four;
-	//five->right = six;
-	//six->right = seven;
-	//auto height = GetHeight(three);
-	//ASSERT_EQ(3, height);
-//}
+TEST(Tree, get_height)
+{
+	auto one = new TreeNode(0);
+	auto two = new TreeNode(2);
+	auto three = new TreeNode(3);
+	auto four = new TreeNode(4);
+	auto five = new TreeNode(5);
+	auto six = new TreeNode(6);
+	auto seven = new TreeNode(7);
+	two->left = one;
+	three->left = two;
+	three->right = five;
+	five->left = four;
+	five->right = six;
+	six->right = seven;
+	auto height = get_height(three);
+	ASSERT_EQ(3, height);
+}
 
 //TEST(Tree, Insert)
 //{
