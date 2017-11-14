@@ -112,6 +112,17 @@ int get_height(TreeNode* root)
 	return lheight > rheight ? lheight + 1 : rheight + 1;
 }
 
+TreeNode* insert(TreeNode* root, int value)
+{
+	if (!root)
+		return new TreeNode(value);
+	if (root->data > value)
+		root->left = insert(root->left, value);
+	else
+		root->right = insert(root->right, value);
+	return root;
+}
+
 } } // namespaces
 
 #endif
