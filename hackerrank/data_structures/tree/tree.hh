@@ -81,10 +81,26 @@ void pre_order_iterator(TreeNode* root, function<void(int)> func)
 	if (!root)
 		return;
 	func(root->data);
-	if (root->left)
-		pre_order_iterator(root->left, func);
-	if (root->right)
-		pre_order_iterator(root->right, func);
+	pre_order_iterator(root->left, func);
+	pre_order_iterator(root->right, func);
+}
+
+void post_order_iterator(TreeNode* root, function<void(int)> func)
+{
+	if (!root)
+		return;
+	post_order_iterator(root->left, func);
+	post_order_iterator(root->right, func);
+	func(root->data);
+}
+
+void in_order_iterator(TreeNode* root, function<void(int)> func)
+{
+	if (!root)
+		return;
+	in_order_iterator(root->left, func);
+	func(root->data);
+	in_order_iterator(root->right, func);
 }
 
 } } // namespaces
