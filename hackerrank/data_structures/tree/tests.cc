@@ -33,6 +33,35 @@ TEST(Tree, PreOrderIterator)
 	ASSERT_EQ(9, x);
 }
 
+TEST(Tree, pre_order_iterator)
+{
+	auto zero = new TreeNode(0);
+	auto one = new TreeNode(1);
+	auto two = new TreeNode(2);
+	auto three = new TreeNode(3);
+	auto four = new TreeNode(4);
+	auto five = new TreeNode(5);
+	auto six = new TreeNode(6);
+	auto seven = new TreeNode(7);
+	auto eight = new TreeNode(8);
+	zero->left = one;
+	one->left = two;
+	one->right = three;
+	zero->right = four;
+	four->left = five;
+	four->right = six;
+	six->left = seven;
+	six->right = eight;
+	unsigned int x = 0;
+	pre_order_iterator(zero, 
+		[&x] (int data) {
+			ASSERT_EQ(x, data);
+			x++;
+		}
+	);
+	ASSERT_EQ(9, x);
+}
+
 //TEST(Tree, PrintPreOrder)
 //{
 	//auto zero = new struct node();
