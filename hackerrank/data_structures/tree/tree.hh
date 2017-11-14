@@ -103,6 +103,15 @@ void in_order_iterator(TreeNode* root, function<void(int)> func)
 	in_order_iterator(root->right, func);
 }
 
+int get_height(TreeNode* root)
+{
+	if (!root)
+		return -1;
+	auto lheight = get_height(root->left);
+	auto rheight = get_height(root->right);
+	return lheight > rheight ? lheight + 1 : rheight + 1;
+}
+
 } } // namespaces
 
 #endif
