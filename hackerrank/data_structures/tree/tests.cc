@@ -53,7 +53,7 @@ TEST(Tree, pre_order_iterator)
 	six->left = seven;
 	six->right = eight;
 	unsigned int x = 0;
-	pre_order_iterator(zero, 
+	pre_order_iterator(zero,
 		[&x] (int data) {
 			ASSERT_EQ(x, data);
 			x++;
@@ -83,7 +83,7 @@ TEST(Tree, post_order_iterator)
 	six->right = eight;
 	unsigned int order[9] = {2, 3, 1, 5, 7, 8, 6, 4, 0};
 	auto x = 0;
-	post_order_iterator(zero, 
+	post_order_iterator(zero,
 		[&x, &order] (int data) {
 			ASSERT_EQ(order[x], data);
 			x++;
@@ -113,7 +113,7 @@ TEST(Tree, in_order_iterator)
 	six->right = eight;
 	unsigned int order[9] = {2, 1, 3, 0, 5, 4, 7, 6, 8};
 	auto x = 0;
-	in_order_iterator(zero, 
+	in_order_iterator(zero,
 		[&x, &order] (int data) {
 			ASSERT_EQ(order[x], data);
 			x++;
@@ -175,6 +175,20 @@ TEST(Tree, insert)
 	ASSERT_EQ(5, root->right->left->data);
 	ASSERT_EQ(7, root->right->right->data);
 }
+
+}
+
+TEST(Tree, huffman_decode)
+{
+	HuffmanNode<char> bnode('B');
+	HuffmanNode<char> cnode('C');
+	HuffmanNode<char> anode('A');
+	HuffmanNode<char> internal('\0', &bnode, &cnode);
+	HuffmanNode<char> huff('\0', &internal, &anode);
+	auto s = "1001011";
+	auto decoded_str = decode_huffman<char, '\0'>(&huff, s);
+	ASSERT_EQ("ABACA", decoded_str) << "Invalid huffman decoding";
+
 
 }
 
