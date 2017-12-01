@@ -157,6 +157,12 @@ std::string decode_huffman( const HuffmanNode<T>* root, const std::string& s)
 	return result;
 }
 
+/// Swap node in the given tree
+void swap_node(TreeNode& root)
+{
+	// TODO
+}
+
 } } // namespaces
 
 #endif
