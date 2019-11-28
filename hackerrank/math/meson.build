@@ -1,11 +1,13 @@
-project('math-challenges', 'cpp', version: '0.9.0',
-	default_options : ['cpp_std=c++17'])
+project('math-challenges', 'cpp', version: '0.9.0',)
+	#default_options : ['cpp_std=c++17'])
 
-lower_triangle = executable('lowest_triangle', ['lowest_triangle.cpp'])
-handshake = executable('handshake', ['handshake.cpp'])
-find_the_point = executable('find_the_point', ['find_the_point.cpp'])
-maximum_draws = executable('maximum_draws', ['maximum_draws.cpp'])
-army_game = executable('army_game', ['army_game.cpp'])
+lower_triangle = executable('lowest_triangle', ['lowest_triangle.cc'])
+handshake = executable('handshake', ['handshake.cc'])
+find_the_point = executable('find_the_point', ['find_the_point.cc'])
+maximum_draws = executable('maximum_draws', ['maximum_draws.cc'])
+army_game = executable('army_game', ['army_game.cc'])
 
-inc_dir = include_directories('.')
-libmath = library('math', ['math.cpp'], include_directories: inc_dir)
+# tests
+boost_test = dependency('boost', modules: ['unit_test_framework'])
+tests = executable('tests', ['tests.cc'], dependencies: boost_test)
+
