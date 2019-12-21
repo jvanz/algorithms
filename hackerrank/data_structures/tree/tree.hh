@@ -10,15 +10,15 @@ namespace jvanz {
 namespace tree {
 
 /// Binary tree data structure
-// TODO add template support
+template<typename T>
 class TreeNode
 {
 public:
-	int data;
-	TreeNode* left;
-	TreeNode* right;
+	T data;
+	TreeNode<T>* left;
+	TreeNode<T>* right;
 
-	TreeNode(int val) : data{val}, left{nullptr}, right{nullptr} {};
+	TreeNode(T val) : data{val}, left{nullptr}, right{nullptr} {};
 
 	class iterator : public std::iterator<std::forward_iterator_tag, TreeNode>
 	{
@@ -76,50 +76,55 @@ public:
 
 }; // TreeNode class
 
-void pre_order_iterator(TreeNode* root, function<void(int)> func)
+template<typename T>
+void pre_order_iterator(TreeNode<T>* root, function<void(T)> func)
 {
 	if (!root)
 		return;
 	func(root->data);
-	pre_order_iterator(root->left, func);
-	pre_order_iterator(root->right, func);
+	pre_order_iterator<T>(root->left, func);
+	pre_order_iterator<T>(root->right, func);
 }
 
-void post_order_iterator(TreeNode* root, function<void(int)> func)
+template<typename T>
+void post_order_iterator(TreeNode<T>* root, function<void(T)> func)
 {
 	if (!root)
 		return;
-	post_order_iterator(root->left, func);
-	post_order_iterator(root->right, func);
+	post_order_iterator<T>(root->left, func);
+	post_order_iterator<T>(root->right, func);
 	func(root->data);
 }
 
-void in_order_iterator(TreeNode* root, function<void(int)> func)
+template<typename T>
+void in_order_iterator(TreeNode<T>* root, function<void(T)> func)
 {
 	if (!root)
 		return;
-	in_order_iterator(root->left, func);
+	in_order_iterator<T>(root->left, func);
 	func(root->data);
-	in_order_iterator(root->right, func);
+	in_order_iterator<T>(root->right, func);
 }
 
-int get_height(TreeNode* root)
+template<typename T>
+int get_height(TreeNode<T>* root)
 {
 	if (!root)
 		return -1;
-	auto lheight = get_height(root->left);
-	auto rheight = get_height(root->right);
+	auto lheight = get_height<T>(root->left);
+	auto rheight = get_height<T>(root->right);
 	return lheight > rheight ? lheight + 1 : rheight + 1;
 }
 
-TreeNode* insert(TreeNode* root, int value)
+template<typename T>
+TreeNode<T>* insert(TreeNode<T>* root, T value)
 {
 	if (!root)
-		return new TreeNode(value);
+		return new TreeNode<T>(value);
 	if (root->data > value)
-		root->left = insert(root->left, value);
+		root->left = insert<T>(root->left, value);
 	else
-		root->right = insert(root->right, value);
+		root->right = insert<T>(root->right, value);
 	return root;
 }
 
@@ -155,12 +160,6 @@ std::string decode_huffman( const HuffmanNode<T>* root, const std::string& s)
 		}
 	}
 	return result;
-}
-
-/// Swap node in the given tree
-void swap_node(TreeNode& root)
-{
-	// TODO
 }
 
 } } // namespaces
