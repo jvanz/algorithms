@@ -1,5 +1,5 @@
 project('algorithms-tree', 'cpp', version: '0.9.0',
-	default_options : ['cpp_std=c++14'])
+	default_options : ['cpp_std=c++17'])
 
 sources = ['tree.hh', 'tests.cc']
 
