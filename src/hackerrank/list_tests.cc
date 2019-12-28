@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
-#include "node.h"
+#include "list.hh"
 
-namespace {
+using namespace jvanz::list;
 
 TEST(LinkedList, CompareList)
 {
@@ -291,11 +291,4 @@ TEST(DoublyLinkedList, ReverseDoublyLinkedList)
 	ASSERT_EQ(nullptr, list);
 
 	ASSERT_EQ(nullptr, ReverseDoublyLinkedList(nullptr));
-}
-
-}
-
-int main(int argc, char **argv) {
-	::testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
 }

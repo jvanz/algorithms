@@ -1,6 +1,9 @@
 #include <iostream>
 
-#include "node.h"
+#include "list.hh"
+
+namespace jvanz{
+namespace list{
 
 Node* Insert(Node *head,int data, int position)
 {
@@ -217,3 +220,5 @@ int FindMergeNode(Node* headA, Node* headB)
 	}
 	return curB->data;
 }
+
+} };

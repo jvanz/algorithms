@@ -1,5 +1,8 @@
 #pragma once
 
+namespace jvanz{
+namespace list{
+
 struct Node
 {
 	int data;
@@ -42,3 +45,5 @@ void Print(Node* head);
  * Finds and returns the data value of the node where the two lists merge
  */
 int FindMergeNode(Node* headA, Node* headB);
+
+} };

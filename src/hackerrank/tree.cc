@@ -2,8 +2,6 @@
 
 #include "tree.hh"
 
-namespace {
-
 using namespace jvanz::tree;
 
 TEST(Tree, PreOrderIterator)
@@ -176,8 +174,6 @@ TEST(Tree, insert)
 	ASSERT_EQ(7, root->right->right->data);
 }
 
-}
-
 TEST(Tree, huffman_decode)
 {
 	HuffmanNode<char> bnode('B');
@@ -190,9 +186,4 @@ TEST(Tree, huffman_decode)
 	ASSERT_EQ("ABACA", decoded_str) << "Invalid huffman decoding";
 
 
-}
-
-int main(int argc, char **argv) {
-	::testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
 }

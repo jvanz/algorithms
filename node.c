@@ -1,3 +1,0 @@
-struct node {
-	void* data;
-};

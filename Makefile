@@ -10,13 +10,12 @@ meson:
 
 build:
 	clear
-	echo "###############################################################"
 	podman run --rm -ti -v $(shell pwd):/code localhost/buildenv:latest ninja -C build
 test:
-	./build/tests
+	./build/hackerrank
 
 gdb:
-	gdb --command gdbcmds ./build/tests
+	gdb --command gdbcmds ./build/hackerrank
 
 clean:
 	rm -rf build
