@@ -4,33 +4,6 @@
 
 using namespace jvanz::tree;
 
-TEST(Tree, PreOrderIterator)
-{
-	auto zero = new TreeNode<int>(0);
-	auto one = new TreeNode<int>(1);
-	auto two = new TreeNode<int>(2);
-	auto three = new TreeNode<int>(3);
-	auto four = new TreeNode<int>(4);
-	auto five = new TreeNode<int>(5);
-	auto six = new TreeNode<int>(6);
-	auto seven = new TreeNode<int>(7);
-	auto eight = new TreeNode<int>(8);
-	zero->left = one;
-	one->left = two;
-	one->right = three;
-	zero->right = four;
-	four->left = five;
-	four->right = six;
-	six->left = seven;
-	six->right = eight;
-	unsigned int x = 0;
-	for (auto n : (*zero)){
-		ASSERT_EQ(x, n.data);
-		x++;
-	}
-	ASSERT_EQ(9, x);
-}
-
 TEST(Tree, pre_order_iterator)
 {
 	auto zero = new TreeNode<int>(0);

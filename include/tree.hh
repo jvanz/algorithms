@@ -20,60 +20,6 @@ public:
 
 	TreeNode(T val) : data{val}, left{nullptr}, right{nullptr} {};
 
-	class iterator : public std::iterator<std::forward_iterator_tag, TreeNode>
-	{
-		private:
-			stack<TreeNode*> st;
-		public:
-			iterator(TreeNode* n)
-			{
-				st.push(n);
-			};
-
-			iterator(const iterator& poi) : st(poi.st) { };
-
-			iterator& operator++()
-			{
-				auto top = this->st.top();
-				this->st.pop();
-				if (top->right)
-					this->st.push(top->right);
-				if (top->left)
-					this->st.push(top->left);
-				return *this;
-			};
-
-			iterator operator++(int)
-			{
-				iterator tmp(*this);
-				operator++();
-				return tmp;
-			};
-
-			bool operator==(const iterator& rhs) const
-			{
-				return this->st.size() > 0 && rhs.st.size() > 0
-					&& this->st.top() == rhs.st.top();
-			};
-
-			bool operator!=(const iterator& rhs) const
-			{
-				return this->st.size() > 0 && rhs.st.size() > 0
-					&& this->st.top() != rhs.st.top();
-			};
-
-			TreeNode& operator*()
-			{
-				return *(this->st.top());
-			};
-
-	}; // iterator class
-
-
-	// TreeNode methods
-	iterator begin() { return iterator(this); };
-	iterator end() { return iterator(nullptr); };
-
 }; // TreeNode class
 
 template<typename T>
