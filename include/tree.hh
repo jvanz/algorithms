@@ -19,6 +19,15 @@ public:
 	TreeNode<T>* right;
 
 	TreeNode(T val) : data{val}, left{nullptr}, right{nullptr} {};
+	~TreeNode()
+	{
+		if (this->left)
+			delete this->left;
+		this->left = nullptr;
+		if (this->right)
+			delete this->right;
+		this->right = nullptr;
+	}
 
 }; // TreeNode class
 

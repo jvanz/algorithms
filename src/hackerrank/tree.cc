@@ -31,6 +31,7 @@ TEST(Tree, pre_order_iterator)
 		}
 	);
 	ASSERT_EQ(9, x);
+	delete zero;
 }
 
 TEST(Tree, post_order_iterator)
@@ -61,6 +62,7 @@ TEST(Tree, post_order_iterator)
 		}
 	);
 	ASSERT_EQ(9, x);
+	delete zero;
 }
 
 TEST(Tree, in_order_iterator)
@@ -91,6 +93,7 @@ TEST(Tree, in_order_iterator)
 		}
 	);
 	ASSERT_EQ(9, x);
+	delete zero;
 }
 
 TEST(Tree, get_height)
@@ -110,6 +113,7 @@ TEST(Tree, get_height)
 	six->right = seven;
 	auto height = get_height<int>(three);
 	ASSERT_EQ(3, height);
+	delete one;
 }
 
 TEST(Tree, insert)
