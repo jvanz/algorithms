@@ -15,7 +15,7 @@ test:
 	./build/hackerrank
 
 gdb:
-	gdb --command gdbcmds ./build/hackerrank
+	gdb -d ./build  ./build/hackerrank
 
 clean:
 	rm -rf build

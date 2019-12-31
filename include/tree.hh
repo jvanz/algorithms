@@ -9,27 +9,148 @@ using namespace std;
 namespace jvanz {
 namespace tree {
 
+// declarations
+template<typename T>
+class PreOrderIterator;
+
 /// Binary tree data structure
 template<typename T>
 class TreeNode
 {
-public:
-	T data;
+private:
 	TreeNode<T>* left;
 	TreeNode<T>* right;
+	TreeNode<T>* parent;
 
-	TreeNode(T val) : data{val}, left{nullptr}, right{nullptr} {};
+public:
+	T data;
+
+	TreeNode(T val): data{val}, left{nullptr}, right{nullptr}, parent{nullptr} {};
+	// For now, avoid copy
+	// copy constructor
+	TreeNode(const TreeNode<T>& other) = delete;
+	// copy assignment
+	TreeNode<T>& operator=(const TreeNode<T> other) = delete;
+	// destructor
 	~TreeNode()
 	{
 		if (this->left)
 			delete this->left;
-		this->left = nullptr;
 		if (this->right)
 			delete this->right;
-		this->right = nullptr;
 	}
 
+	void set_left(TreeNode<T>* _left)
+	{
+		this->left = _left;
+		_left->parent = this;
+	}
+
+	void set_right(TreeNode<T>* _right)
+	{
+		this->right = _right;
+		_right->parent = this;
+	}
+
+	TreeNode<T>* get_left()
+	{
+	       return this->left;
+	}
+
+	TreeNode<T>* get_right()
+	{
+		return this->right;
+	}
+
+	PreOrderIterator<T> begin(){
+		return PreOrderIterator<T>(this);
+	}
+	PreOrderIterator<T> end(){
+		return PreOrderIterator<T>(nullptr);
+	}
+
+	friend class PreOrderIterator<T>;
+	template<typename I>
+	friend void pre_order_iterator(TreeNode<I>* root, function<void(I)> func);
+	template<typename I>
+	friend void post_order_iterator(TreeNode<I>* root, function<void(I)> func);
+	template<typename I>
+	friend void in_order_iterator(TreeNode<I>* root, function<void(I)> func);
+	template<typename I>
+	friend TreeNode<I>* insert(TreeNode<I>* root, I value);
+	template<typename I>
+	friend int get_height(TreeNode<I>* root);
+
+
 }; // TreeNode class
+
+/**
+ * Iterator class to traverse a binary tree using the pre order algorithm
+ */
+template<typename T>
+class PreOrderIterator
+{
+	private:
+		TreeNode<T>* current;
+		TreeNode<T>* last_left;
+		TreeNode<T>* last_right;
+
+	void get_next_node(TreeNode<T>* root)
+	{
+		if (this->current->left && this->last_left != this->current->left) {
+			this->current = this->current->left;
+		} else if (this->current->right && this->last_right != this->current->right) {
+			this->current = this->current->right;
+		} else {
+			if (this->current->parent == nullptr) {
+				this->current = nullptr;
+				return;
+			}
+			if (this->current->parent->left == this->current) {
+				this->last_left = this->current;
+			} else if (this->current->parent->right == this->current) {
+				this->last_right = this->current;
+				// pre order. If I'm in the right branch, the
+				// left is done.
+				this->last_left = this->current->parent->left;
+			}
+			this->current = this->current->parent;
+			this->get_next_node(this->current);
+		}
+	}
+
+	public:
+	PreOrderIterator(TreeNode<T>* _curr): current{_curr}, last_left{nullptr}, last_right{nullptr} {};
+	PreOrderIterator(const PreOrderIterator<T>& it): current{it.current}, last_left{it.last_left}, last_right{it.last_right} {};
+
+	PreOrderIterator& operator++()
+	{
+		this->get_next_node(this->current);
+		return *this;
+	};
+
+	PreOrderIterator& operator++(int)
+	{
+		this->operator++();
+		return *this;
+	};
+
+	bool operator==(const PreOrderIterator& rhs)
+	{
+		return this->current == rhs.current;
+	};
+
+	bool operator!=(const PreOrderIterator& rhs)
+	{
+		return !this->operator==(rhs);
+	};
+
+	TreeNode<T>& operator*()
+	{
+		return *this->current;
+	};
+
+};
 
 template<typename T>
 void pre_order_iterator(TreeNode<T>* root, function<void(T)> func)
