@@ -26,11 +26,6 @@ public:
 	T data;
 
 	TreeNode(T val): data{val}, left{nullptr}, right{nullptr}, parent{nullptr} {};
-	// For now, avoid copy
-	// copy constructor
-	TreeNode(const TreeNode<T>& other) = delete;
-	// copy assignment
-	TreeNode<T>& operator=(const TreeNode<T> other) = delete;
 	// destructor
 	~TreeNode()
 	{
