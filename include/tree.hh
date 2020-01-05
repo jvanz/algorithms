@@ -23,14 +23,40 @@ private:
 public:
 	T data;
 
-	TreeNode(T val): left{nullptr}, right{nullptr}, parent{nullptr}, data{val} {};
+	TreeNode(): left{nullptr}, right{nullptr}, parent{nullptr}, data{} {};
+	explicit TreeNode(T val): left{nullptr}, right{nullptr}, parent{nullptr}, data{val} {};
+	TreeNode(const TreeNode<T>& other): left{other.left}, right{other.right}, parent{other.parent}, data{other.data} { }; // copy constructor
+	TreeNode(TreeNode<T>&& other):left{move(other.left)}, right{move(other.right)}, parent{move(other.parent)}, data{move(other.data)} { } // move constructor
+
+	TreeNode<T>& operator=(const TreeNode<T>& other)
+	{
+		this->left = other.left;
+		this->right = other.right;
+		this->parent = other.parent;
+		this->data = other.data;
+		return *this;
+	} // copy assignment
+
+	TreeNode<T>& operator=(const TreeNode<T>&& other)
+	{
+		this->left = move(other.left);
+		this->right = move(other.right);
+		this->parent = move(other.parent);
+		this->data = move(other.data);
+		return *this;
+
+	} // move assignment
+
 	// destructor
 	~TreeNode()
 	{
 		if (this->left)
 			delete this->left;
+		this->left = nullptr;
 		if (this->right)
 			delete this->right;
+		this->right = nullptr;
+		this->parent = nullptr;
 	}
 
 	void set_left(TreeNode<T>* _left)
@@ -45,20 +71,20 @@ public:
 		_right->parent = this;
 	}
 
-	TreeNode<T>* get_left()
+	TreeNode<T>* get_left() const
 	{
 	       return this->left;
 	}
 
-	TreeNode<T>* get_right()
+	TreeNode<T>* get_right() const
 	{
 		return this->right;
 	}
 
-	PreOrderIterator<T> begin(){
+	PreOrderIterator<T> begin() {
 		return PreOrderIterator<T>(this);
 	}
-	PreOrderIterator<T> end(){
+	PreOrderIterator<T> end() {
 		return PreOrderIterator<T>(nullptr);
 	}
 
