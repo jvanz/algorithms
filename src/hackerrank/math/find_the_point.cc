@@ -8,10 +8,10 @@ using namespace std;
 
 bool is_point_valid(int p)
 {
-	return -100 <= p <= 100;
+	return (-100 <= p) && (p <= 100);
 }
 
-int main(int argc, char** argv)
+int main()
 {
 	// read input
 	unsigned int n;

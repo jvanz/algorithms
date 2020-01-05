@@ -23,7 +23,7 @@ private:
 public:
 	T data;
 
-	TreeNode(T val): data{val}, left{nullptr}, right{nullptr}, parent{nullptr} {};
+	TreeNode(T val): left{nullptr}, right{nullptr}, parent{nullptr}, data{val} {};
 	// destructor
 	~TreeNode()
 	{
@@ -88,7 +88,7 @@ class PreOrderIterator
 		TreeNode<T>* last_left;
 		TreeNode<T>* last_right;
 
-	void get_next_node(TreeNode<T>* root)
+	void get_next_node()
 	{
 		if (this->current->left && this->last_left != this->current->left) {
 			this->current = this->current->left;
@@ -108,7 +108,7 @@ class PreOrderIterator
 				this->last_left = this->current->parent->left;
 			}
 			this->current = this->current->parent;
-			this->get_next_node(this->current);
+			this->get_next_node();
 		}
 	}
 
@@ -118,7 +118,7 @@ class PreOrderIterator
 
 	PreOrderIterator& operator++()
 	{
-		this->get_next_node(this->current);
+		this->get_next_node();
 		return *this;
 	};
 

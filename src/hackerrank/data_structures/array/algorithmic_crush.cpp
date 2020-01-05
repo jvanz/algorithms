@@ -25,7 +25,7 @@ int main() {
 			arr[b+1] -= k;
 	}
 	long x = 0;
-	for (auto i = 0; i < N; i++){
+	for (unsigned int i = 0; i < N; i++){
 		x = x + arr[i];
 		if (max < x)
 			max = x;

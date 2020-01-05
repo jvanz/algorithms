@@ -1,6 +1,9 @@
 project('algorithms', 'cpp', version: '0.9.0',
 	default_options : ['cpp_std=c++17'])
 
+# Warnings are errors!
+add_global_arguments('-Werror', '-Wextra',language:'cpp')
+
 hackerrank_sources = ['src/hackerrank/tests.cc', 'src/hackerrank/list_tests.cc', 'src/hackerrank/array_test.cc', 'src/hackerrank/tree.cc']
 lib_sources = ['src/list.cc']
 
