@@ -1,5 +1,4 @@
-#ifndef _TREE_HH
-#define _TREE_HH
+#pragma once
 
 #include <functional>
 #include <stack>
@@ -235,4 +234,3 @@ std::string decode_huffman( const HuffmanNode<T>* root, const std::string& s)
 
 } } // namespaces
 
-#endif
