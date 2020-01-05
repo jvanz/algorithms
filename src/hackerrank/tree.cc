@@ -4,7 +4,7 @@
 
 using namespace jvanz::tree;
 
-TEST(Tree, pre_order_iterator)
+TEST(HackerRankTree, pre_order_iterator)
 {
 	auto zero = new TreeNode<int>(0);
 	auto one = new TreeNode<int>(1);
@@ -34,7 +34,7 @@ TEST(Tree, pre_order_iterator)
 	delete zero;
 }
 
-TEST(Tree, post_order_iterator)
+TEST(HackerRankTree, post_order_iterator)
 {
 	auto zero = new TreeNode<int>(0);
 	auto one = new TreeNode<int>(1);
@@ -65,7 +65,7 @@ TEST(Tree, post_order_iterator)
 	delete zero;
 }
 
-TEST(Tree, in_order_iterator)
+TEST(HackerRankTree, in_order_iterator)
 {
 	auto zero = new TreeNode<int>(0);
 	auto one = new TreeNode<int>(1);
@@ -96,7 +96,7 @@ TEST(Tree, in_order_iterator)
 	delete zero;
 }
 
-TEST(Tree, get_height)
+TEST(HackerRankTree, get_height)
 {
 	auto one = new TreeNode<int>(0);
 	auto two = new TreeNode<int>(2);
@@ -116,7 +116,7 @@ TEST(Tree, get_height)
 	delete one;
 }
 
-TEST(Tree, insert)
+TEST(HackerRankTree, insert)
 {
 	auto root = insert<int>(nullptr, 4);
 	root = insert<int>(root, 2);
@@ -151,7 +151,7 @@ TEST(Tree, insert)
 	ASSERT_EQ(7, root->get_right()->get_right()->data);
 }
 
-TEST(Tree, huffman_decode)
+TEST(HackerRankTree, huffman_decode)
 {
 	HuffmanNode<char> bnode('B');
 	HuffmanNode<char> cnode('C');
@@ -165,7 +165,7 @@ TEST(Tree, huffman_decode)
 
 }
 
-TEST(Tree, PreOrderIterator)
+TEST(HackerRankTree, PreOrderIterator)
 {
 	auto zero = new TreeNode<int>(0);
 	auto one = new TreeNode<int>(1);
@@ -184,7 +184,7 @@ TEST(Tree, PreOrderIterator)
 	ASSERT_EQ(5, x);
 }
 
-TEST(Tree, PreOrderIterator2)
+TEST(HackerRankTree, PreOrderIterator2)
 {
 	auto zero = new TreeNode<int>(0);
 	auto one = new TreeNode<int>(1);
