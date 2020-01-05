@@ -12,7 +12,7 @@ template<typename T>
 class PreOrderIterator;
 
 /// Binary tree data structure
-template<typename T, typename IT = PreOrderIterator<T>>
+template<typename T>
 class TreeNode
 {
 private:
@@ -55,14 +55,14 @@ public:
 		return this->right;
 	}
 
-	IT begin(){
-		return IT(this);
+	PreOrderIterator<T> begin(){
+		return PreOrderIterator<T>(this);
 	}
-	IT end(){
-		return IT(nullptr);
+	PreOrderIterator<T> end(){
+		return PreOrderIterator<T>(nullptr);
 	}
 
-	friend IT;
+	friend class PreOrderIterator<T>;
 	template<typename I>
 	friend void pre_order_iterator(TreeNode<I>* root, function<void(I)> func);
 	template<typename I>
@@ -116,24 +116,24 @@ class PreOrderIterator
 	PreOrderIterator(TreeNode<T>* _curr): current{_curr}, last_left{nullptr}, last_right{nullptr} {};
 	PreOrderIterator(const PreOrderIterator<T>& it): current{it.current}, last_left{it.last_left}, last_right{it.last_right} {};
 
-	PreOrderIterator<T>& operator++()
+	PreOrderIterator& operator++()
 	{
 		this->get_next_node(this->current);
 		return *this;
 	};
 
-	PreOrderIterator<T>& operator++(int)
+	PreOrderIterator& operator++(int)
 	{
 		this->operator++();
 		return *this;
 	};
 
-	bool operator==(const PreOrderIterator<T>& rhs)
+	bool operator==(const PreOrderIterator& rhs)
 	{
 		return this->current == rhs.current;
 	};
 
-	bool operator!=(const PreOrderIterator<T>& rhs)
+	bool operator!=(const PreOrderIterator& rhs)
 	{
 		return !this->operator==(rhs);
 	};
