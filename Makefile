@@ -12,10 +12,10 @@ build:
 	clear
 	podman run --rm -ti -v $(shell pwd):/code localhost/buildenv:latest ninja -C build
 test:
-	./build/hackerrank
+	./build/tests
 
 gdb:
-	gdb -d ./build  ./build/hackerrank
+	gdb -d ./build  ./build/tests
 
 clean:
 	rm -rf build

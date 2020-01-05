@@ -4,7 +4,7 @@ project('algorithms', 'cpp', version: '0.9.0',
 # Warnings are errors!
 add_global_arguments('-Werror', '-Wextra',language:'cpp')
 
-hackerrank_sources = ['src/hackerrank/tests.cc', 'src/hackerrank/list_tests.cc', 'src/hackerrank/array_test.cc', 'src/hackerrank/tree.cc']
+tests_sources = ['src/tests.cc', 'src/hackerrank/list_tests.cc', 'src/hackerrank/array_test.cc', 'src/hackerrank/tree.cc', 'src/tree.cc']
 lib_sources = ['src/list.cc']
 
 incdir = include_directories('include')
@@ -13,8 +13,8 @@ dependencies = [dependency('gtest')]
 
 lib = shared_library('algorithms', lib_sources, include_directories: incdir)
 
-# hackerrank executables
-hackerrank = executable('hackerrank', hackerrank_sources, dependencies: dependencies, include_directories: incdir, link_with: lib)
+# all tests
+tests = executable('tests', tests_sources, dependencies: dependencies, include_directories: incdir, link_with: lib)
 executable('algorithmic_crush', ['src/hackerrank/data_structures/array/algorithmic_crush.cpp'], dependencies: dependencies)
 executable('left_rotation', ['src/hackerrank/data_structures/array/left_rotation.cpp'], dependencies: dependencies)
 executable('dynamic_array', ['src/hackerrank/data_structures/array/dynamic_array.cpp'], dependencies: dependencies)
