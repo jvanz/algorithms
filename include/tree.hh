@@ -8,48 +8,53 @@ namespace jvanz {
 namespace tree {
 
 // declarations
-template<typename T>
+template <typename T>
 class PreOrderIterator;
 
 /// Binary tree data structure
-template<typename T>
-class TreeNode
-{
-private:
+template <typename T>
+class TreeNode {
+       private:
 	TreeNode<T>* left;
 	TreeNode<T>* right;
 	TreeNode<T>* parent;
 
-public:
+       public:
 	T data;
 
-	TreeNode(): left{nullptr}, right{nullptr}, parent{nullptr}, data{} {};
-	explicit TreeNode(T val): left{nullptr}, right{nullptr}, parent{nullptr}, data{val} {};
-	TreeNode(const TreeNode<T>& other): left{other.left}, right{other.right}, parent{other.parent}, data{other.data} { }; // copy constructor
-	TreeNode(TreeNode<T>&& other):left{move(other.left)}, right{move(other.right)}, parent{move(other.parent)}, data{move(other.data)} { } // move constructor
+	TreeNode() : left{nullptr}, right{nullptr}, parent{nullptr}, data{} {};
+	explicit TreeNode(T val)
+	    : left{nullptr}, right{nullptr}, parent{nullptr}, data{val} {};
+	TreeNode(const TreeNode<T>& other)
+	    : left{other.left},
+	      right{other.right},
+	      parent{other.parent},
+	      data{other.data} {};  // copy constructor
+	TreeNode(TreeNode<T>&& other)
+	    : left{move(other.left)},
+	      right{move(other.right)},
+	      parent{move(other.parent)},
+	      data{move(other.data)} {}  // move constructor
 
-	TreeNode<T>& operator=(const TreeNode<T>& other)
-	{
+	TreeNode<T>& operator=(const TreeNode<T>& other) {
 		this->left = other.left;
 		this->right = other.right;
 		this->parent = other.parent;
 		this->data = other.data;
 		return *this;
-	} // copy assignment
+	}  // copy assignment
 
-	TreeNode<T>& operator=(const TreeNode<T>&& other)
-	{
+	TreeNode<T>& operator=(const TreeNode<T>&& other) {
 		this->left = move(other.left);
 		this->right = move(other.right);
 		this->parent = move(other.parent);
 		this->data = move(other.data);
 		return *this;
 
-	} // move assignment
+	}  // move assignment
 
 	// destructor
-	~TreeNode()
-	{
+	~TreeNode() {
 		if (this->left)
 			delete this->left;
 		this->left = nullptr;
@@ -59,66 +64,56 @@ public:
 		this->parent = nullptr;
 	}
 
-	void set_left(TreeNode<T>* _left)
-	{
+	void set_left(TreeNode<T>* _left) {
 		this->left = _left;
 		_left->parent = this;
 	}
 
-	void set_right(TreeNode<T>* _right)
-	{
+	void set_right(TreeNode<T>* _right) {
 		this->right = _right;
 		_right->parent = this;
 	}
 
-	TreeNode<T>* get_left() const
-	{
-	       return this->left;
-	}
+	TreeNode<T>* get_left() const { return this->left; }
 
-	TreeNode<T>* get_right() const
-	{
-		return this->right;
-	}
+	TreeNode<T>* get_right() const { return this->right; }
 
-	PreOrderIterator<T> begin() {
-		return PreOrderIterator<T>(this);
-	}
-	PreOrderIterator<T> end() {
-		return PreOrderIterator<T>(nullptr);
-	}
+	PreOrderIterator<T> begin() { return PreOrderIterator<T>(this); }
+	PreOrderIterator<T> end() { return PreOrderIterator<T>(nullptr); }
 
 	friend class PreOrderIterator<T>;
-	template<typename I>
-	friend void pre_order_iterator(TreeNode<I>* root, function<void(I)> func);
-	template<typename I>
-	friend void post_order_iterator(TreeNode<I>* root, function<void(I)> func);
-	template<typename I>
-	friend void in_order_iterator(TreeNode<I>* root, function<void(I)> func);
-	template<typename I>
+	template <typename I>
+	friend void pre_order_iterator(TreeNode<I>* root,
+				       function<void(I)> func);
+	template <typename I>
+	friend void post_order_iterator(TreeNode<I>* root,
+					function<void(I)> func);
+	template <typename I>
+	friend void in_order_iterator(TreeNode<I>* root,
+				      function<void(I)> func);
+	template <typename I>
 	friend TreeNode<I>* insert(TreeNode<I>* root, I value);
-	template<typename I>
+	template <typename I>
 	friend int get_height(TreeNode<I>* root);
 
-
-}; // TreeNode class
+};  // TreeNode class
 
 /**
  * Iterator class to traverse a binary tree using the pre order algorithm
  */
-template<typename T>
-class PreOrderIterator
-{
-	private:
-		TreeNode<T>* current;
-		TreeNode<T>* last_left;
-		TreeNode<T>* last_right;
+template <typename T>
+class PreOrderIterator {
+       private:
+	TreeNode<T>* current;
+	TreeNode<T>* last_left;
+	TreeNode<T>* last_right;
 
-	void get_next_node()
-	{
-		if (this->current->left && this->last_left != this->current->left) {
+	void get_next_node() {
+		if (this->current->left &&
+		    this->last_left != this->current->left) {
 			this->current = this->current->left;
-		} else if (this->current->right && this->last_right != this->current->right) {
+		} else if (this->current->right &&
+			   this->last_right != this->current->right) {
 			this->current = this->current->right;
 		} else {
 			if (this->current->parent == nullptr) {
@@ -127,7 +122,8 @@ class PreOrderIterator
 			}
 			if (this->current->parent->left == this->current) {
 				this->last_left = this->current;
-			} else if (this->current->parent->right == this->current) {
+			} else if (this->current->parent->right ==
+				   this->current) {
 				this->last_right = this->current;
 				// pre order. If I'm in the right branch, the
 				// left is done.
@@ -138,42 +134,37 @@ class PreOrderIterator
 		}
 	}
 
-	public:
-	PreOrderIterator(TreeNode<T>* _curr): current{_curr}, last_left{nullptr}, last_right{nullptr} {};
-	PreOrderIterator(const PreOrderIterator<T>& it): current{it.current}, last_left{it.last_left}, last_right{it.last_right} {};
+       public:
+	PreOrderIterator(TreeNode<T>* _curr)
+	    : current{_curr}, last_left{nullptr}, last_right{nullptr} {};
+	PreOrderIterator(const PreOrderIterator<T>& it)
+	    : current{it.current},
+	      last_left{it.last_left},
+	      last_right{it.last_right} {};
 
-	PreOrderIterator& operator++()
-	{
+	PreOrderIterator& operator++() {
 		this->get_next_node();
 		return *this;
 	};
 
-	PreOrderIterator& operator++(int)
-	{
+	PreOrderIterator& operator++(int) {
 		this->operator++();
 		return *this;
 	};
 
-	bool operator==(const PreOrderIterator& rhs)
-	{
+	bool operator==(const PreOrderIterator& rhs) {
 		return this->current == rhs.current;
 	};
 
-	bool operator!=(const PreOrderIterator& rhs)
-	{
+	bool operator!=(const PreOrderIterator& rhs) {
 		return !this->operator==(rhs);
 	};
 
-	TreeNode<T>& operator*()
-	{
-		return *this->current;
-	};
-
+	TreeNode<T>& operator*() { return *this->current; };
 };
 
-template<typename T>
-void pre_order_iterator(TreeNode<T>* root, function<void(T)> func)
-{
+template <typename T>
+void pre_order_iterator(TreeNode<T>* root, function<void(T)> func) {
 	if (!root)
 		return;
 	func(root->data);
@@ -181,9 +172,8 @@ void pre_order_iterator(TreeNode<T>* root, function<void(T)> func)
 	pre_order_iterator<T>(root->right, func);
 }
 
-template<typename T>
-void post_order_iterator(TreeNode<T>* root, function<void(T)> func)
-{
+template <typename T>
+void post_order_iterator(TreeNode<T>* root, function<void(T)> func) {
 	if (!root)
 		return;
 	post_order_iterator<T>(root->left, func);
@@ -191,9 +181,8 @@ void post_order_iterator(TreeNode<T>* root, function<void(T)> func)
 	func(root->data);
 }
 
-template<typename T>
-void in_order_iterator(TreeNode<T>* root, function<void(T)> func)
-{
+template <typename T>
+void in_order_iterator(TreeNode<T>* root, function<void(T)> func) {
 	if (!root)
 		return;
 	in_order_iterator<T>(root->left, func);
@@ -201,9 +190,8 @@ void in_order_iterator(TreeNode<T>* root, function<void(T)> func)
 	in_order_iterator<T>(root->right, func);
 }
 
-template<typename T>
-int get_height(TreeNode<T>* root)
-{
+template <typename T>
+int get_height(TreeNode<T>* root) {
 	if (!root)
 		return -1;
 	auto lheight = get_height<T>(root->left);
@@ -211,9 +199,8 @@ int get_height(TreeNode<T>* root)
 	return lheight > rheight ? lheight + 1 : rheight + 1;
 }
 
-template<typename T>
-TreeNode<T>* insert(TreeNode<T>* root, T value)
-{
+template <typename T>
+TreeNode<T>* insert(TreeNode<T>* root, T value) {
 	if (!root)
 		return new TreeNode<T>(value);
 	if (root->data > value)
@@ -223,22 +210,24 @@ TreeNode<T>* insert(TreeNode<T>* root, T value)
 	return root;
 }
 
-template<typename T>
-class HuffmanNode
-{
+template <typename T>
+class HuffmanNode {
 	T data;
 	HuffmanNode<T>* left;
 	HuffmanNode<T>* right;
-	public:
-	HuffmanNode(T _data, HuffmanNode<T>* _left=nullptr, HuffmanNode<T>* _right=nullptr):
-		data{_data}, left{_left}, right{_right} { };
-	template<typename P, P internalval>
-	friend std::string decode_huffman( const HuffmanNode<P>* root, const std::string& s);
+
+       public:
+	HuffmanNode(T _data,
+		    HuffmanNode<T>* _left = nullptr,
+		    HuffmanNode<T>* _right = nullptr)
+	    : data{_data}, left{_left}, right{_right} {};
+	template <typename P, P internalval>
+	friend std::string decode_huffman(const HuffmanNode<P>* root,
+					  const std::string& s);
 };
 
-template<typename T, T internalval>
-std::string decode_huffman( const HuffmanNode<T>* root, const std::string& s)
-{
+template <typename T, T internalval>
+std::string decode_huffman(const HuffmanNode<T>* root, const std::string& s) {
 	std::string result = "";
 	auto node = root;
 	for (auto c : s) {
@@ -249,7 +238,7 @@ std::string decode_huffman( const HuffmanNode<T>* root, const std::string& s)
 		else
 			throw "Invalid value";
 		// leaf node? If so, get the char and restart the process
-		if (node->data != internalval){
+		if (node->data != internalval) {
 			result += node->data;
 			node = root;
 		}
@@ -257,5 +246,5 @@ std::string decode_huffman( const HuffmanNode<T>* root, const std::string& s)
 	return result;
 }
 
-} } // namespaces
-
+}  // namespace tree
+}  // namespace jvanz

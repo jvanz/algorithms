@@ -1,21 +1,20 @@
 #pragma once
 
-namespace jvanz{
-namespace list{
+namespace jvanz {
+namespace list {
 
-struct Node
-{
+struct Node {
 	int data;
 	struct Node* next;
 	struct Node* prev;
 };
 
-Node* Insert(Node *head,int data, int position);
-Node* Reverse(Node *head);
+Node* Insert(Node* head, int data, int position);
+Node* Reverse(Node* head);
 bool CompareLists(Node* headA, Node* headB);
-Node* InsertHead(Node *head,int data);
-Node* InsertTail(Node *head,int data);
-Node* Delete(Node *head, int position);
+Node* InsertHead(Node* head, int data);
+Node* InsertTail(Node* head, int data);
+Node* Delete(Node* head, int position);
 Node* MergeLists(Node* headA, Node* headB);
 int GetNode(Node* head, int postionFromTail);
 
@@ -46,4 +45,5 @@ void Print(Node* head);
  */
 int FindMergeNode(Node* headA, Node* headB);
 
-} };
+}  // namespace list
+};  // namespace jvanz

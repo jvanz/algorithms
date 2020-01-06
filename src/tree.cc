@@ -4,13 +4,11 @@
 
 using namespace jvanz::tree;
 
-TreeNode<int> call_move_assignment(TreeNode<int> t)
-{
+TreeNode<int> call_move_assignment(TreeNode<int> t) {
 	return t;
 }
 
-TEST(Tree, CopyTree)
-{
+TEST(Tree, CopyTree) {
 	ASSERT_TRUE(is_copy_assignable<TreeNode<int>>::value);
 	ASSERT_TRUE(is_copy_assignable<TreeNode<long>>::value);
 	ASSERT_TRUE(is_copy_assignable<TreeNode<double>>::value);
@@ -22,21 +20,18 @@ TEST(Tree, CopyTree)
 	ASSERT_TRUE(is_copy_constructible<TreeNode<float>>::value);
 
 	TreeNode<int> a(1);
-	TreeNode<int> b = a; // copy assignment
+	TreeNode<int> b = a;  // copy assignment
 	ASSERT_EQ(a.data, b.data);
 	ASSERT_NE(&a, &b);
 	b.data = 2;
 	ASSERT_EQ(a.data, 1);
 	ASSERT_EQ(b.data, 2);
-	b = a; // copy constructor
+	b = a;  // copy constructor
 	ASSERT_EQ(a.data, b.data);
 	ASSERT_NE(&a, &b);
-
-
 }
 
-TEST(Tree, MoveTree)
-{
+TEST(Tree, MoveTree) {
 	ASSERT_TRUE(is_move_assignable<TreeNode<int>>::value);
 	ASSERT_TRUE(is_move_assignable<TreeNode<long>>::value);
 	ASSERT_TRUE(is_move_assignable<TreeNode<double>>::value);
@@ -55,5 +50,4 @@ TEST(Tree, MoveTree)
 	b = call_move_assignment(t);
 	ASSERT_EQ(b.data, 2);
 	ASSERT_EQ(a.data, 1);
-
 }

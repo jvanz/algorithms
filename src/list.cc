@@ -2,18 +2,17 @@
 
 #include "list.hh"
 
-namespace jvanz{
-namespace list{
+namespace jvanz {
+namespace list {
 
-Node* Insert(Node *head,int data, int position)
-{
+Node* Insert(Node* head, int data, int position) {
 	// create the new node
 	Node* newNode = new Node();
 	newNode->next = nullptr;
 	newNode->prev = nullptr;
 	newNode->data = data;
 
-	if (!head || position == 0){
+	if (!head || position == 0) {
 		newNode->next = head;
 		return newNode;
 	}
@@ -26,8 +25,7 @@ Node* Insert(Node *head,int data, int position)
 	return head;
 }
 
-Node* Reverse(Node *head)
-{
+Node* Reverse(Node* head) {
 	if (!head || !head->next)
 		return head;
 	auto reverse = Reverse(head->next);
@@ -36,15 +34,14 @@ Node* Reverse(Node *head)
 	return reverse;
 }
 
-bool CompareLists(Node* headA, Node* headB)
-{
+bool CompareLists(Node* headA, Node* headB) {
 	if ((headA && !headB) || (!headA && headB))
 		return false;
-	return (!headA && !headB) || (headA->data == headB->data && CompareLists(headA->next, headB->next));
+	return (!headA && !headB) || (headA->data == headB->data &&
+				      CompareLists(headA->next, headB->next));
 }
 
-Node* InsertHead(Node *head,int data)
-{
+Node* InsertHead(Node* head, int data) {
 	auto node = new Node();
 	node->data = data;
 	node->next = head;
@@ -52,15 +49,14 @@ Node* InsertHead(Node *head,int data)
 	return node;
 }
 
-Node* InsertTail(Node *head,int data)
-{
+Node* InsertTail(Node* head, int data) {
 	// create the new node
 	Node* newNode = new Node();
 	newNode->next = nullptr;
 	newNode->prev = nullptr;
 	newNode->data = data;
 
-	if (!head){
+	if (!head) {
 		// first node, return the head
 		return newNode;
 	}
@@ -72,11 +68,10 @@ Node* InsertTail(Node *head,int data)
 	return head;
 }
 
-Node* Delete(Node *head, int position)
-{
+Node* Delete(Node* head, int position) {
 	Node* current = head;
 	Node* previous = nullptr;
-	while (position-- > 0 && current){
+	while (position-- > 0 && current) {
 		previous = current;
 		current = current->next;
 	}
@@ -89,8 +84,7 @@ Node* Delete(Node *head, int position)
 	return head;
 }
 
-Node* MergeLists(Node* headA, Node* headB)
-{
+Node* MergeLists(Node* headA, Node* headB) {
 	if (!headA || !headB)
 		return headA ? headA : headB;
 	Node* merge;
@@ -104,12 +98,11 @@ Node* MergeLists(Node* headA, Node* headB)
 	return merge;
 }
 
-int GetNode(Node* head, int positionFromTail)
-{
+int GetNode(Node* head, int positionFromTail) {
 	auto ptr1 = head;
 	auto ptr2 = head;
 	auto len = 0;
-	while (ptr1){
+	while (ptr1) {
 		ptr1 = ptr1->next;
 		if (len > positionFromTail)
 			ptr2 = ptr2->next;
@@ -118,12 +111,11 @@ int GetNode(Node* head, int positionFromTail)
 	return ptr2->data;
 }
 
-Node* RemoveDuplicates(Node* head)
-{
+Node* RemoveDuplicates(Node* head) {
 	if (!head || !head->next)
 		return head;
 	auto ptr1 = RemoveDuplicates(head->next);
-	if (head->data == ptr1->data){
+	if (head->data == ptr1->data) {
 		delete head;
 		return ptr1;
 	} else {
@@ -132,11 +124,10 @@ Node* RemoveDuplicates(Node* head)
 	return head;
 }
 
-bool HasCycle(Node* head)
-{
+bool HasCycle(Node* head) {
 	auto tortoise = head;
 	auto habbit = head;
-	while (habbit && habbit->next){
+	while (habbit && habbit->next) {
 		habbit = habbit->next->next;
 		if (habbit == tortoise)
 			return true;
@@ -145,19 +136,18 @@ bool HasCycle(Node* head)
 	return false;
 }
 
-Node* InsertSortedDoublyLinkedList(Node* head, int data)
-{
-	if (!head){
+Node* InsertSortedDoublyLinkedList(Node* head, int data) {
+	if (!head) {
 		Node* newNode = new Node();
 		newNode->next = nullptr;
 		newNode->prev = nullptr;
 		newNode->data = data;
 		return newNode;
 	}
-	if (head->data >= data){
+	if (head->data >= data) {
 		Node* newNode = new Node();
 		newNode->data = data;
-		if (head->prev){
+		if (head->prev) {
 			head->prev->next = newNode;
 			newNode->prev = head->prev;
 			newNode->next = head;
@@ -168,7 +158,7 @@ Node* InsertSortedDoublyLinkedList(Node* head, int data)
 			head->prev = newNode;
 			head = newNode;
 		}
-	} else if (!head->next){
+	} else if (!head->next) {
 		Node* newNode = new Node();
 		newNode->data = data;
 		newNode->prev = head;
@@ -179,11 +169,10 @@ Node* InsertSortedDoublyLinkedList(Node* head, int data)
 	return head;
 }
 
-Node* ReverseDoublyLinkedList(Node* head)
-{
+Node* ReverseDoublyLinkedList(Node* head) {
 	if (!head)
 		return head;
-	if (!head->next){
+	if (!head->next) {
 		head->next = head->prev;
 		head->prev = nullptr;
 		return head;
@@ -195,20 +184,18 @@ Node* ReverseDoublyLinkedList(Node* head)
 	return ReverseDoublyLinkedList(old_next);
 }
 
-void Print(Node* head)
-{
-	while (head){
+void Print(Node* head) {
+	while (head) {
 		std::cout << head->data << " --> ";
 		head = head->next;
 	}
 	std::cout << "NULL" << std::endl;
 }
 
-int FindMergeNode(Node* headA, Node* headB)
-{
+int FindMergeNode(Node* headA, Node* headB) {
 	auto curA = headA;
 	auto curB = headB;
-	while (curA->data != curB->data){
+	while (curA->data != curB->data) {
 		if (curA->next)
 			curA = curA->next;
 		else
@@ -221,4 +208,5 @@ int FindMergeNode(Node* headA, Node* headB)
 	return curB->data;
 }
 
-} };
+}  // namespace list
+};  // namespace jvanz

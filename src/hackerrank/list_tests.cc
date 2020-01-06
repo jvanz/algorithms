@@ -4,18 +4,17 @@
 
 using namespace jvanz::list;
 
-TEST(LinkedList, CompareList)
-{
+TEST(LinkedList, CompareList) {
 	Node* list = Insert(nullptr, 1, 0);
 	Node* list2 = Insert(nullptr, 1, 0);
 	Node* list3 = Insert(nullptr, 1, 0);
 	Node* list4 = Insert(nullptr, 1, 0);
 	for (int i = 1; i < 11; i++)
-		list = Insert(list, i+1, i);
+		list = Insert(list, i + 1, i);
 	for (int i = 1; i < 11; i++)
-		list2 = Insert(list2, i+1, i);
+		list2 = Insert(list2, i + 1, i);
 	for (int i = 1; i < 11; i++)
-		list3 = Insert(list3, i+2, i);
+		list3 = Insert(list3, i + 2, i);
 	ASSERT_TRUE(CompareLists(list, list2));
 	ASSERT_FALSE(CompareLists(list, list3));
 	ASSERT_FALSE(CompareLists(list2, list3));
@@ -23,8 +22,7 @@ TEST(LinkedList, CompareList)
 	ASSERT_FALSE(CompareLists(list, nullptr));
 }
 
-TEST(LinkedList, MergeList)
-{
+TEST(LinkedList, MergeList) {
 	Node* list = InsertTail(nullptr, 2);
 	InsertTail(list, 4);
 	InsertTail(list, 7);
@@ -48,8 +46,7 @@ TEST(LinkedList, MergeList)
 	ASSERT_EQ(nullptr, merge) << "Node should be null";
 }
 
-TEST(LinkedList, MergeListWithNullPointer)
-{
+TEST(LinkedList, MergeListWithNullPointer) {
 	Node* list = InsertTail(nullptr, 2);
 	InsertTail(list, 4);
 	InsertTail(list, 7);
@@ -65,13 +62,11 @@ TEST(LinkedList, MergeListWithNullPointer)
 	ASSERT_EQ(nullptr, merge) << "Node should be null";
 }
 
-TEST(LinkedList, MergeListWithTwoNullPointer)
-{
+TEST(LinkedList, MergeListWithTwoNullPointer) {
 	ASSERT_EQ(nullptr, MergeLists(nullptr, nullptr));
 }
 
-TEST(LinkedList, GetNodeFromTail)
-{
+TEST(LinkedList, GetNodeFromTail) {
 	Node* list = InsertTail(nullptr, 1);
 	InsertTail(list, 2);
 	InsertTail(list, 3);
@@ -85,8 +80,7 @@ TEST(LinkedList, GetNodeFromTail)
 	ASSERT_EQ(1, GetNode(list, 4));
 }
 
-TEST(LinkedList, RemoveDuplicateNode)
-{
+TEST(LinkedList, RemoveDuplicateNode) {
 	ASSERT_EQ(nullptr, RemoveDuplicates(nullptr));
 
 	Node* list = InsertTail(nullptr, 1);
@@ -135,13 +129,12 @@ TEST(LinkedList, RemoveDuplicateNode)
 	ASSERT_EQ(nullptr, list) << "Invalid value";
 }
 
-TEST(LinkedList, InsertTail)
-{
+TEST(LinkedList, InsertTail) {
 	Node* list = InsertTail(nullptr, 1);
 	InsertTail(list, 2);
 	InsertTail(list, 3);
 	InsertTail(list, 4);
-	for (auto i = 1; i <= 4; i++){
+	for (auto i = 1; i <= 4; i++) {
 		ASSERT_NE(list, nullptr) << "Missing list nodes";
 		ASSERT_EQ(list->data, i) << "Invalid node value";
 		list = list->next;
@@ -149,13 +142,12 @@ TEST(LinkedList, InsertTail)
 	ASSERT_EQ(list, nullptr) << "The list should not have more nodes";
 }
 
-TEST(LinkedList, InsertHead)
-{
+TEST(LinkedList, InsertHead) {
 	Node* head = nullptr;
 	head = InsertHead(head, 1);
 	head = InsertHead(head, 2);
 	head = InsertHead(head, 3);
-	for (auto i = 3; i >= 1; i--){
+	for (auto i = 3; i >= 1; i--) {
 		ASSERT_NE(head, nullptr);
 		ASSERT_EQ(head->data, i);
 		head = head->next;
@@ -163,8 +155,7 @@ TEST(LinkedList, InsertHead)
 	ASSERT_EQ(head, nullptr);
 }
 
-TEST(LinkedList, InsertPosition)
-{
+TEST(LinkedList, InsertPosition) {
 	Node* list = Insert(nullptr, 1, 0);
 	Insert(list, 2, 1);
 	Insert(list, 3, 2);
@@ -173,7 +164,7 @@ TEST(LinkedList, InsertPosition)
 	list = Insert(list, 6, 0);
 	ASSERT_EQ(list->data, 6);
 	list = list->next;
-	for (auto i = 1; i <= 5; i++){
+	for (auto i = 1; i <= 5; i++) {
 		ASSERT_NE(list, nullptr) << "Missing list nodes";
 		ASSERT_EQ(list->data, i) << "Invalid node value";
 		list = list->next;
@@ -181,28 +172,26 @@ TEST(LinkedList, InsertPosition)
 	ASSERT_EQ(list, nullptr) << "The list should not have more nodes";
 }
 
-TEST(LinkedList, ReverseList)
-{
+TEST(LinkedList, ReverseList) {
 	Node* list = Insert(nullptr, 1, 0);
 	for (int i = 1; i <= 9; i++)
-		list = Insert(list, i+1, i);
+		list = Insert(list, i + 1, i);
 	int i = 0;
 	Node* bck = list;
-	while (bck){
-		ASSERT_EQ(i+1, bck->data);
+	while (bck) {
+		ASSERT_EQ(i + 1, bck->data);
 		i++;
 		bck = bck->next;
 	}
 	list = Reverse(list);
 	i = 10;
-	while (list){
+	while (list) {
 		ASSERT_EQ(list->data, i--);
 		list = list->next;
 	}
 }
 
-TEST(LinkedList, DeleteNode)
-{
+TEST(LinkedList, DeleteNode) {
 	Node* list = InsertTail(nullptr, 1);
 	InsertTail(list, 2);
 	InsertTail(list, 3);
@@ -211,7 +200,7 @@ TEST(LinkedList, DeleteNode)
 	InsertTail(list, 6);
 	list = Delete(list, 5);
 	list = Delete(list, 0);
-	for (auto i = 2; i <= 5; i++){
+	for (auto i = 2; i <= 5; i++) {
 		ASSERT_NE(list, nullptr) << "Missing list nodes";
 		ASSERT_EQ(list->data, i) << "Invalid node value";
 		list = list->next;
@@ -219,8 +208,7 @@ TEST(LinkedList, DeleteNode)
 	ASSERT_EQ(list, nullptr) << "The list should not have more nodes";
 }
 
-TEST(LinkedList, HasCycle)
-{
+TEST(LinkedList, HasCycle) {
 	Node* list = InsertTail(nullptr, 1);
 	InsertTail(list, 2);
 	list->next->next = list;
@@ -238,8 +226,7 @@ TEST(LinkedList, HasCycle)
 	ASSERT_TRUE(HasCycle(list)) << "List should has cycles";
 }
 
-TEST(DoublyLinkedList, InsertSortedDoublyLinkedList)
-{
+TEST(DoublyLinkedList, InsertSortedDoublyLinkedList) {
 	Node* list = InsertSortedDoublyLinkedList(nullptr, 4);
 	ASSERT_EQ(4, list->data);
 	list = InsertSortedDoublyLinkedList(list, 2);
@@ -266,8 +253,7 @@ TEST(DoublyLinkedList, InsertSortedDoublyLinkedList)
 	ASSERT_EQ(nullptr, list);
 }
 
-TEST(DoublyLinkedList, ReverseDoublyLinkedList)
-{
+TEST(DoublyLinkedList, ReverseDoublyLinkedList) {
 	Node* list = InsertSortedDoublyLinkedList(nullptr, 4);
 	list = InsertSortedDoublyLinkedList(list, 2);
 	list = InsertSortedDoublyLinkedList(list, 9);

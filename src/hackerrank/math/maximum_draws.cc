@@ -1,8 +1,8 @@
+#include <algorithm>
 #include <cmath>
 #include <cstdio>
-#include <vector>
 #include <iostream>
-#include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -14,9 +14,8 @@ int main() {
 	while (t--) {
 		unsigned int n;
 		cin >> n;
-		if (n > pow(10,6))
+		if (n > pow(10, 6))
 			return -1;
 		cout << n + 1 << endl;
 	}
 }
-

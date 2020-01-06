@@ -1,8 +1,8 @@
+#include <algorithm>
 #include <cmath>
 #include <cstdio>
-#include <vector>
 #include <iostream>
-#include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -21,7 +21,8 @@ int main() {
 			if (type == 1) {
 				seqList[index].push_back(y);
 			} else {
-				lastAnswer = seqList[index][y % seqList[index].size()];
+				lastAnswer =
+				    seqList[index][y % seqList[index].size()];
 				cout << lastAnswer << endl;
 			}
 		} else {

@@ -3,12 +3,11 @@
 
 using namespace std;
 
-int lowestTriangle(int base, int area){
+int lowestTriangle(int base, int area) {
 	return ceil((float)(2 * area) / base);
 }
 
-int main()
-{
+int main() {
 	int base;
 	int area;
 	cin >> base >> area;

@@ -4,8 +4,7 @@
 
 using namespace jvanz::tree;
 
-TEST(HackerRankTree, pre_order_iterator)
-{
+TEST(HackerRankTree, pre_order_iterator) {
 	auto zero = new TreeNode<int>(0);
 	auto one = new TreeNode<int>(1);
 	auto two = new TreeNode<int>(2);
@@ -24,18 +23,15 @@ TEST(HackerRankTree, pre_order_iterator)
 	six->set_left(seven);
 	six->set_right(eight);
 	unsigned int x = 0;
-	pre_order_iterator<int>(zero,
-		[&x] (int data) {
-			ASSERT_EQ(x, data);
-			x++;
-		}
-	);
+	pre_order_iterator<int>(zero, [&x](int data) {
+		ASSERT_EQ(x, data);
+		x++;
+	});
 	ASSERT_EQ(9, x);
 	delete zero;
 }
 
-TEST(HackerRankTree, post_order_iterator)
-{
+TEST(HackerRankTree, post_order_iterator) {
 	auto zero = new TreeNode<int>(0);
 	auto one = new TreeNode<int>(1);
 	auto two = new TreeNode<int>(2);
@@ -55,18 +51,15 @@ TEST(HackerRankTree, post_order_iterator)
 	six->set_right(eight);
 	unsigned int order[9] = {2, 3, 1, 5, 7, 8, 6, 4, 0};
 	auto x = 0;
-	post_order_iterator<int>(zero,
-		[&x, &order] (int data) {
-			ASSERT_EQ(order[x], data);
-			x++;
-		}
-	);
+	post_order_iterator<int>(zero, [&x, &order](int data) {
+		ASSERT_EQ(order[x], data);
+		x++;
+	});
 	ASSERT_EQ(9, x);
 	delete zero;
 }
 
-TEST(HackerRankTree, in_order_iterator)
-{
+TEST(HackerRankTree, in_order_iterator) {
 	auto zero = new TreeNode<int>(0);
 	auto one = new TreeNode<int>(1);
 	auto two = new TreeNode<int>(2);
@@ -86,18 +79,15 @@ TEST(HackerRankTree, in_order_iterator)
 	six->set_right(eight);
 	unsigned int order[9] = {2, 1, 3, 0, 5, 4, 7, 6, 8};
 	auto x = 0;
-	in_order_iterator<int>(zero,
-		[&x, &order] (int data) {
-			ASSERT_EQ(order[x], data);
-			x++;
-		}
-	);
+	in_order_iterator<int>(zero, [&x, &order](int data) {
+		ASSERT_EQ(order[x], data);
+		x++;
+	});
 	ASSERT_EQ(9, x);
 	delete zero;
 }
 
-TEST(HackerRankTree, get_height)
-{
+TEST(HackerRankTree, get_height) {
 	auto one = new TreeNode<int>(0);
 	auto two = new TreeNode<int>(2);
 	auto three = new TreeNode<int>(3);
@@ -116,8 +106,7 @@ TEST(HackerRankTree, get_height)
 	delete one;
 }
 
-TEST(HackerRankTree, insert)
-{
+TEST(HackerRankTree, insert) {
 	auto root = insert<int>(nullptr, 4);
 	root = insert<int>(root, 2);
 	root = insert<int>(root, 3);
@@ -151,8 +140,7 @@ TEST(HackerRankTree, insert)
 	ASSERT_EQ(7, root->get_right()->get_right()->data);
 }
 
-TEST(HackerRankTree, huffman_decode)
-{
+TEST(HackerRankTree, huffman_decode) {
 	HuffmanNode<char> bnode('B');
 	HuffmanNode<char> cnode('C');
 	HuffmanNode<char> anode('A');
@@ -161,12 +149,9 @@ TEST(HackerRankTree, huffman_decode)
 	auto s = "1001011";
 	auto decoded_str = decode_huffman<char, '\0'>(&huff, s);
 	ASSERT_EQ("ABACA", decoded_str) << "Invalid huffman decoding";
-
-
 }
 
-TEST(HackerRankTree, PreOrderIterator)
-{
+TEST(HackerRankTree, PreOrderIterator) {
 	auto zero = new TreeNode<int>(0);
 	auto one = new TreeNode<int>(1);
 	auto two = new TreeNode<int>(2);
@@ -184,8 +169,7 @@ TEST(HackerRankTree, PreOrderIterator)
 	ASSERT_EQ(5, x);
 }
 
-TEST(HackerRankTree, PreOrderIterator2)
-{
+TEST(HackerRankTree, PreOrderIterator2) {
 	auto zero = new TreeNode<int>(0);
 	auto one = new TreeNode<int>(1);
 	auto two = new TreeNode<int>(2);
