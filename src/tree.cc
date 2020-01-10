@@ -21,13 +21,13 @@ TEST(Tree, CopyTree) {
 
 	TreeNode<int> a(1);
 	TreeNode<int> b = a;  // copy assignment
-	ASSERT_EQ(a.data, b.data);
+	ASSERT_EQ(a.get(), b.get());
 	ASSERT_NE(&a, &b);
-	b.data = 2;
-	ASSERT_EQ(a.data, 1);
-	ASSERT_EQ(b.data, 2);
+	b.set(2);
+	ASSERT_EQ(a.get(), 1);
+	ASSERT_EQ(b.get(), 2);
 	b = a;  // copy constructor
-	ASSERT_EQ(a.data, b.data);
+	ASSERT_EQ(a.get(), b.get());
 	ASSERT_NE(&a, &b);
 }
 
@@ -44,10 +44,10 @@ TEST(Tree, MoveTree) {
 
 	TreeNode<int> t(1);
 	TreeNode<int> a = std::move(t);
-	ASSERT_EQ(a.data, 1);
-	t.data = 2;
+	ASSERT_EQ(a.get(), 1);
+	t.set(2);
 	TreeNode<int> b;
 	b = call_move_assignment(t);
-	ASSERT_EQ(b.data, 2);
-	ASSERT_EQ(a.data, 1);
+	ASSERT_EQ(b.get(), 2);
+	ASSERT_EQ(a.get(), 1);
 }

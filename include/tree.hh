@@ -18,18 +18,20 @@ class TreeNode {
 	TreeNode<T>* left;
 	TreeNode<T>* right;
 	TreeNode<T>* parent;
-
-       public:
 	T data;
 
-	TreeNode() : left{nullptr}, right{nullptr}, parent{nullptr}, data{} {};
-	explicit TreeNode(T val)
+       public:
+	TreeNode() : left{nullptr}, right{nullptr}, parent{nullptr} {};
+
+	explicit TreeNode(const T& val)
 	    : left{nullptr}, right{nullptr}, parent{nullptr}, data{val} {};
+
 	TreeNode(const TreeNode<T>& other)
 	    : left{other.left},
 	      right{other.right},
 	      parent{other.parent},
 	      data{other.data} {};  // copy constructor
+
 	TreeNode(TreeNode<T>&& other)
 	    : left{move(other.left)},
 	      right{move(other.right)},
@@ -75,8 +77,9 @@ class TreeNode {
 	}
 
 	TreeNode<T>* get_left() const { return this->left; }
-
 	TreeNode<T>* get_right() const { return this->right; }
+	T get() const { return this->data; }
+	void set(T&& _data) { this->data = move(_data); }
 
 	PreOrderIterator<T> begin() { return PreOrderIterator<T>(this); }
 	PreOrderIterator<T> end() { return PreOrderIterator<T>(nullptr); }
@@ -96,7 +99,7 @@ class TreeNode {
 	template <typename I>
 	friend int get_height(TreeNode<I>* root);
 
-};  // TreeNode class
+};  // namespace tree
 
 /**
  * Iterator class to traverse a binary tree using the pre order algorithm
@@ -167,7 +170,7 @@ template <typename T>
 void pre_order_iterator(TreeNode<T>* root, function<void(T)> func) {
 	if (!root)
 		return;
-	func(root->data);
+	func(root->get());
 	pre_order_iterator<T>(root->left, func);
 	pre_order_iterator<T>(root->right, func);
 }
@@ -178,7 +181,7 @@ void post_order_iterator(TreeNode<T>* root, function<void(T)> func) {
 		return;
 	post_order_iterator<T>(root->left, func);
 	post_order_iterator<T>(root->right, func);
-	func(root->data);
+	func(root->get());
 }
 
 template <typename T>
@@ -186,7 +189,7 @@ void in_order_iterator(TreeNode<T>* root, function<void(T)> func) {
 	if (!root)
 		return;
 	in_order_iterator<T>(root->left, func);
-	func(root->data);
+	func(root->get());
 	in_order_iterator<T>(root->right, func);
 }
 
@@ -203,7 +206,7 @@ template <typename T>
 TreeNode<T>* insert(TreeNode<T>* root, T value) {
 	if (!root)
 		return new TreeNode<T>(value);
-	if (root->data > value)
+	if (root->get() > value)
 		root->left = insert<T>(root->left, value);
 	else
 		root->right = insert<T>(root->right, value);

@@ -131,13 +131,13 @@ TEST(HackerRankTree, insert) {
 	ASSERT_EQ(nullptr, root->get_right()->get_right()->get_left());
 	ASSERT_EQ(nullptr, root->get_right()->get_right()->get_right());
 	// validate node data
-	ASSERT_EQ(4, root->data);
-	ASSERT_EQ(2, root->get_left()->data);
-	ASSERT_EQ(1, root->get_left()->get_left()->data);
-	ASSERT_EQ(3, root->get_left()->get_right()->data);
-	ASSERT_EQ(6, root->get_right()->data);
-	ASSERT_EQ(5, root->get_right()->get_left()->data);
-	ASSERT_EQ(7, root->get_right()->get_right()->data);
+	ASSERT_EQ(4, root->get());
+	ASSERT_EQ(2, root->get_left()->get());
+	ASSERT_EQ(1, root->get_left()->get_left()->get());
+	ASSERT_EQ(3, root->get_left()->get_right()->get());
+	ASSERT_EQ(6, root->get_right()->get());
+	ASSERT_EQ(5, root->get_right()->get_left()->get());
+	ASSERT_EQ(7, root->get_right()->get_right()->get());
 }
 
 TEST(HackerRankTree, huffman_decode) {
@@ -163,7 +163,7 @@ TEST(HackerRankTree, PreOrderIterator) {
 	one->set_right(three);
 	unsigned int x = 0;
 	for (auto&& n : *zero) {
-		ASSERT_EQ(x, n.data);
+		ASSERT_EQ(x, n.get());
 		x++;
 	}
 	ASSERT_EQ(5, x);
@@ -189,7 +189,7 @@ TEST(HackerRankTree, PreOrderIterator2) {
 	six->set_right(eight);
 	unsigned int x = 0;
 	for (auto&& n : *zero) {
-		ASSERT_EQ(x, n.data);
+		ASSERT_EQ(x, n.get());
 		x++;
 	}
 	ASSERT_EQ(9, x);
