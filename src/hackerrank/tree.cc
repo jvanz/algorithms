@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <iostream>
 
 #include "tree.hh"
 
@@ -193,4 +194,87 @@ TEST(HackerRankTree, PreOrderIterator2) {
 		x++;
 	}
 	ASSERT_EQ(9, x);
+}
+
+TEST(HackerRankTree, TopView) {
+	// https://www.hackerrank.com/challenges/tree-top-view/problem
+	auto one = new TreeNode<int>(1);
+	auto two = new TreeNode<int>(2);
+	auto three = new TreeNode<int>(3);
+	auto four = new TreeNode<int>(4);
+	auto five = new TreeNode<int>(5);
+	auto six = new TreeNode<int>(6);
+	one->set_right(two);
+	two->set_right(five);
+	five->set_left(three);
+	five->set_right(six);
+	three->set_right(four);
+
+	std::array<int, 4> expectedvalues = {1, 2, 5, 6};
+	std::queue<int> expected;
+	for (auto v : expectedvalues)
+		expected.push(v);
+
+	top_view<int>(one, [&expected](TreeNode<int>* node) {
+		ASSERT_EQ(expected.front(), node->get());
+		expected.pop();
+	});
+	ASSERT_EQ(expected.size(), 0);
+	delete one;
+}
+
+TEST(HackerRankTree, TopView2) {
+	// https://www.hackerrank.com/challenges/tree-top-view/problem
+	auto one = new TreeNode<int>(1);
+	auto two = new TreeNode<int>(2);
+	auto three = new TreeNode<int>(3);
+	auto four = new TreeNode<int>(4);
+	auto five = new TreeNode<int>(5);
+	auto six = new TreeNode<int>(6);
+	auto seven = new TreeNode<int>(7);
+	auto eight = new TreeNode<int>(8);
+	auto nine = new TreeNode<int>(9);
+	one->set_right(two);
+	two->set_right(five);
+	five->set_left(three);
+	five->set_right(six);
+	three->set_right(four);
+	one->set_left(seven);
+	seven->set_right(eight);
+	seven->set_left(nine);
+	std::array<int, 6> expectedvalues = {9, 7, 1, 2, 5, 6};
+	std::queue<int> expected;
+	for (auto v : expectedvalues)
+		expected.push(v);
+
+	top_view<int>(one, [&expected](TreeNode<int>* node) {
+		ASSERT_EQ(expected.front(), node->get());
+		expected.pop();
+	});
+	ASSERT_EQ(expected.size(), 0);
+	delete one;
+}
+
+TEST(HackerRankTree, TopView3) {
+	// https://www.hackerrank.com/challenges/tree-top-view/problem
+	vector<int> input{1, 14, 3, 7, 4, 5, 15, 6, 13, 10, 11, 2, 12, 8, 9};
+	vector<TreeNode<int>*> nodes;
+	for (auto i : input)
+		nodes.push_back(new TreeNode<int>(i));
+	auto comp_func = [](TreeNode<int>* root, TreeNode<int>* child) -> int {
+		return child->get() - root->get();
+	};
+	for (unsigned int i = 1; i < nodes.size(); i++)
+		insert<int>(nodes[0], nodes[i], comp_func);
+
+	std::array<int, 5> expectedvalues = {2, 1, 14, 15, 12};
+	std::queue<int> expected;
+	for (auto v : expectedvalues)
+		expected.push(v);
+
+	top_view<int>(nodes[0], [&expected](TreeNode<int>* node) {
+		ASSERT_EQ(expected.front(), node->get());
+		expected.pop();
+	});
+	ASSERT_EQ(expected.size(), 0);
 }

@@ -106,6 +106,8 @@ class TreeNode {
 	    TreeNode<I>* root,
 	    TreeNode<I>* children,
 	    function<int(TreeNode<I>* root, TreeNode<I>* child)> compare);
+	template <typename I>
+	friend void top_view(TreeNode<I>*, function<void(I)>);
 
 };  // namespace tree
 
@@ -304,8 +306,50 @@ void vertical_traversal(TreeNode<T>* root,
 		return;
 
 	func(root, distance);
-	vertical_traversal<T>(root->get_left(), func, distance - 1);
 	vertical_traversal<T>(root->get_right(), func, distance + 1);
+	vertical_traversal<T>(root->get_left(), func, distance - 1);
+}
+
+template <typename T>
+void top_view(TreeNode<T>* root, function<void(TreeNode<T>*)> func) {
+	// TODO this functions is a mess. Simplify it!
+	if (root == nullptr)
+		return;
+	std::map<int, std::list<TreeNode<T>*>> distances;
+	std::map<TreeNode<T>*, int> distance_nodes;
+	// find node horizontal distances
+	vertical_traversal<T>(root, [&distances, &distance_nodes](
+					TreeNode<T>* node, int distance) {
+		auto nodes_list = distances.find(distance);
+		if (nodes_list == distances.end()) {
+			distances.insert(
+			    std::pair<int, std::list<TreeNode<T>*>>(
+				distance, std::list<TreeNode<T>*>()));
+			nodes_list = distances.find(distance);
+		}
+		distance_nodes.insert(
+		    std::pair<TreeNode<T>*, int>(node, distance));
+		nodes_list->second.push_back(node);
+	});
+
+	// find the top view nodes
+	level_traversal<T>(
+	    root, [&distances, &distance_nodes](TreeNode<T>* node) {
+		    auto distance = distance_nodes.find(node)->second;
+		    auto nodes = distances.find(distance);
+		    if (nodes == distances.end() || nodes->second.size() == 1)
+			    return;
+
+		    distances.erase(nodes);
+		    distances.insert(std::pair<int, std::list<TreeNode<T>*>>(
+			distance, std::list<TreeNode<T>*>()));
+		    nodes = distances.find(distance);
+		    nodes->second.push_back(node);
+	    });
+	for (auto distance : distances) {
+		if (distance.second.size() > 0)
+			func(distance.second.front());
+	}
 }
 
 }  // namespace tree
