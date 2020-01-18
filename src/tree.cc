@@ -51,3 +51,50 @@ TEST(Tree, MoveTree) {
 	ASSERT_EQ(b.get(), 2);
 	ASSERT_EQ(a.get(), 1);
 }
+
+TEST(Tree, Insert) {
+	auto root = new TreeNode<int>(1);
+	auto left = new TreeNode<int>(0);
+	auto right = new TreeNode<int>(2);
+	auto comp_func = [](TreeNode<int>* root, TreeNode<int>* child) -> int {
+		return child->get() - root->get();
+	};
+	insert<int>(root, left, comp_func);
+	insert<int>(root, right, comp_func);
+	ASSERT_EQ(root->get_left(), left);
+	ASSERT_EQ(root->get_right(), right);
+	ASSERT_EQ(root->get(), 1);
+	ASSERT_EQ(root->get_left()->get(), 0);
+	ASSERT_EQ(root->get_right()->get(), 2);
+	delete root;
+}
+
+TEST(Tree, Insert2) {
+	auto one = new TreeNode<int>(1);
+	auto two = new TreeNode<int>(2);
+	auto three = new TreeNode<int>(3);
+	auto four = new TreeNode<int>(4);
+	auto five = new TreeNode<int>(5);
+	auto comp_func = [](TreeNode<int>* root, TreeNode<int>* child) -> int {
+		return child->get() - root->get();
+	};
+	insert<int>(one, two, comp_func);
+	insert<int>(one, three, comp_func);
+	insert<int>(one, four, comp_func);
+	insert<int>(one, five, comp_func);
+	ASSERT_EQ(one->get_left(), nullptr);
+	ASSERT_EQ(one->get_right(), two);
+	ASSERT_EQ(one->get_right()->get(), 2);
+	ASSERT_EQ(two->get_left(), nullptr);
+	ASSERT_EQ(two->get_right(), three);
+	ASSERT_EQ(two->get_right()->get(), 3);
+	ASSERT_EQ(three->get_left(), nullptr);
+	ASSERT_EQ(three->get_right(), four);
+	ASSERT_EQ(three->get_right()->get(), 4);
+	ASSERT_EQ(four->get_left(), nullptr);
+	ASSERT_EQ(four->get_right(), five);
+	ASSERT_EQ(four->get_right()->get(), 5);
+	ASSERT_EQ(five->get_left(), nullptr);
+	ASSERT_EQ(five->get_right(), nullptr);
+	delete one;
+}

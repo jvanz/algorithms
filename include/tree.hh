@@ -98,6 +98,11 @@ class TreeNode {
 	friend TreeNode<I>* insert(TreeNode<I>* root, I value);
 	template <typename I>
 	friend int get_height(TreeNode<I>* root);
+	template <typename I>
+	friend void insert(
+	    TreeNode<I>* root,
+	    TreeNode<I>* children,
+	    function<int(TreeNode<I>* root, TreeNode<I>* child)> compare);
 
 };  // namespace tree
 
@@ -247,6 +252,28 @@ std::string decode_huffman(const HuffmanNode<T>* root, const std::string& s) {
 		}
 	}
 	return result;
+}
+template <typename I>
+void insert(TreeNode<I>* root,
+	    TreeNode<I>* children,
+	    function<int(TreeNode<I>* root, TreeNode<I>* child)> compare) {
+	if (root == nullptr || children == nullptr)
+		return;
+
+	auto position = compare(root, children);
+	if (position < 0) {
+		if (root->get_left() == nullptr)
+			root->set_left(children);
+		else
+			insert(root->get_left(), children, compare);
+		return;
+	}
+
+	if (root->get_right() == nullptr) {
+		root->set_right(children);
+		return;
+	}
+	insert(root->get_right(), children, compare);
 }
 
 }  // namespace tree
