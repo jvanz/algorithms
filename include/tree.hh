@@ -276,5 +276,17 @@ void insert(TreeNode<I>* root,
 	insert(root->get_right(), children, compare);
 }
 
+template <typename T>
+void vertical_traversal(TreeNode<T>* root,
+			function<void(TreeNode<T>*, int)> func,
+			int distance = 0) {
+	if (!root)
+		return;
+
+	func(root, distance);
+	vertical_traversal<T>(root->get_left(), func, distance - 1);
+	vertical_traversal<T>(root->get_right(), func, distance + 1);
+}
+
 }  // namespace tree
 }  // namespace jvanz

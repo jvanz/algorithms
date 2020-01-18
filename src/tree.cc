@@ -98,3 +98,66 @@ TEST(Tree, Insert2) {
 	ASSERT_EQ(five->get_right(), nullptr);
 	delete one;
 }
+
+TEST(Tree, VertialOrderTraversal) {
+	vector<int> input{1, 14, 3, 7, 4, 5, 15, 6, 13, 10, 11, 2, 12, 8, 9};
+	vector<TreeNode<int>*> nodes;
+	for (auto i : input)
+		nodes.push_back(new TreeNode<int>(i));
+	auto comp_func = [](TreeNode<int>* root, TreeNode<int>* child) -> int {
+		return child->get() - root->get();
+	};
+	for (unsigned int i = 1; i < nodes.size(); i++)
+		insert<int>(nodes[0], nodes[i], comp_func);
+	map<int, int> distances{{1, 0},  {14, 1}, {3, 0},  {7, 1},  {4, 0},
+				{5, 1},  {15, 2}, {6, 2},  {13, 2}, {10, 1},
+				{11, 2}, {2, -1}, {12, 3}, {8, 0},  {9, 1}};
+	vertical_traversal<int>(
+	    nodes[0], [&distances](TreeNode<int>* node, unsigned int distance) {
+		    ASSERT_EQ(distances[node->get()], distance);
+	    });
+}
+
+TEST(Tree, VertialOrderTraversal2) {
+	auto one = new TreeNode<int>(1);
+	auto two = new TreeNode<int>(2);
+	auto three = new TreeNode<int>(3);
+	auto four = new TreeNode<int>(4);
+	auto five = new TreeNode<int>(5);
+	auto comp_func = [](TreeNode<int>* root, TreeNode<int>* child) -> int {
+		return child->get() - root->get();
+	};
+	insert<int>(one, two, comp_func);
+	insert<int>(one, three, comp_func);
+	insert<int>(one, four, comp_func);
+	insert<int>(one, five, comp_func);
+
+	map<int, int> distances{{1, 0}, {2, 1}, {3, 2}, {4, 3}, {5, 4}};
+	vertical_traversal<int>(
+	    one, [&distances](TreeNode<int>* node, int distance) {
+		    ASSERT_EQ(distances[node->get()], distance);
+	    });
+	delete one;
+}
+
+TEST(Tree, VertialOrderTraversal3) {
+	auto one = new TreeNode<int>(1);
+	auto two = new TreeNode<int>(2);
+	auto three = new TreeNode<int>(3);
+	auto four = new TreeNode<int>(4);
+	auto five = new TreeNode<int>(5);
+	auto comp_func = [](TreeNode<int>* root, TreeNode<int>* child) -> int {
+		return child->get() - root->get();
+	};
+	insert<int>(five, four, comp_func);
+	insert<int>(five, three, comp_func);
+	insert<int>(five, two, comp_func);
+	insert<int>(five, one, comp_func);
+
+	map<int, int> distances{{1, -4}, {2, -3}, {3, -2}, {4, -1}, {5, 0}};
+	vertical_traversal<int>(
+	    five, [&distances](TreeNode<int>* node, int distance) {
+		    ASSERT_EQ(distances[node->get()], distance);
+	    });
+	delete five;
+}
