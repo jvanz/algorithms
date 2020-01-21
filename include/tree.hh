@@ -1,6 +1,9 @@
 #pragma once
 
+#include <algorithm>
 #include <functional>
+#include <list>
+#include <queue>
 
 using namespace std;
 
@@ -274,6 +277,23 @@ void insert(TreeNode<I>* root,
 		return;
 	}
 	insert(root->get_right(), children, compare);
+}
+
+template <typename T>
+void level_traversal(TreeNode<T>* root, function<void(TreeNode<T>*)> func) {
+	if (root == nullptr)
+		return;
+
+	queue<TreeNode<T>*> q;
+	q.push(root);
+	while (!q.empty()) {
+		func(q.front());
+		if (q.front()->get_left() != nullptr)
+			q.push(q.front()->get_left());
+		if (q.front()->get_right() != nullptr)
+			q.push(q.front()->get_right());
+		q.pop();
+	}
 }
 
 template <typename T>

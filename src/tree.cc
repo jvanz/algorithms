@@ -1,4 +1,7 @@
 #include <gtest/gtest.h>
+#include <array>
+#include <iostream>
+#include <queue>
 
 #include "tree.hh"
 
@@ -160,4 +163,54 @@ TEST(Tree, VertialOrderTraversal3) {
 		    ASSERT_EQ(distances[node->get()], distance);
 	    });
 	delete five;
+}
+
+TEST(Tree, LevelOrderTraversal) {
+	auto root = new TreeNode<int>(1);
+	auto left = new TreeNode<int>(0);
+	auto right = new TreeNode<int>(2);
+	auto comp_func = [](TreeNode<int>* root, TreeNode<int>* child) -> int {
+		return child->get() - root->get();
+	};
+	insert<int>(root, left, comp_func);
+	insert<int>(root, right, comp_func);
+	ASSERT_EQ(root->get_left(), left);
+	ASSERT_EQ(root->get_right(), right);
+	ASSERT_EQ(root->get(), 1);
+	ASSERT_EQ(root->get_left()->get(), 0);
+	ASSERT_EQ(root->get_right()->get(), 2);
+
+	std::array<int, 3> expectedvalues = {1, 0, 2};
+	std::queue<int> expected;
+	for (auto v : expectedvalues)
+		expected.push(v);
+	level_traversal<int>(root, [&expected](TreeNode<int>* node) {
+		ASSERT_EQ(expected.front(), node->get());
+		expected.pop();
+	});
+	ASSERT_EQ(expected.size(), 0);
+	delete root;
+}
+
+TEST(Tree, LevelOrderTraversal2) {
+	vector<int> input{1, 14, 3, 7, 4, 5, 15, 6, 13, 10, 11, 2, 12, 8, 9};
+	vector<TreeNode<int>*> nodes;
+	for (auto i : input)
+		nodes.push_back(new TreeNode<int>(i));
+	auto comp_func = [](TreeNode<int>* root, TreeNode<int>* child) -> int {
+		return child->get() - root->get();
+	};
+	for (unsigned int i = 1; i < nodes.size(); i++)
+		insert<int>(nodes[0], nodes[i], comp_func);
+
+	std::array<int, 15> expectedvalues = {1, 14, 3, 15, 2,  7, 4, 13,
+					      5, 10, 6, 8,  11, 9, 12};
+	std::queue<int> expected;
+	for (auto v : expectedvalues)
+		expected.push(v);
+	level_traversal<int>(nodes[0], [&expected](TreeNode<int>* node) {
+		ASSERT_EQ(expected.front(), node->get());
+		expected.pop();
+	});
+	ASSERT_EQ(expected.size(), 0);
 }
