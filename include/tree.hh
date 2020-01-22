@@ -282,18 +282,23 @@ void insert(TreeNode<I>* root,
 }
 
 template <typename T>
-void level_traversal(TreeNode<T>* root, function<void(TreeNode<T>*)> func) {
+void level_traversal(TreeNode<T>* root,
+		     function<void(TreeNode<T>*, int)> func) {
 	if (root == nullptr)
 		return;
 
-	queue<TreeNode<T>*> q;
-	q.push(root);
+	queue<std::pair<TreeNode<T>*, int>> q;
+	q.push(std::pair<TreeNode<T>*, int>(root, 0));
 	while (!q.empty()) {
-		func(q.front());
-		if (q.front()->get_left() != nullptr)
-			q.push(q.front()->get_left());
-		if (q.front()->get_right() != nullptr)
-			q.push(q.front()->get_right());
+		func(q.front().first, q.front().second);
+		if (q.front().first->get_left() != nullptr)
+			q.push(std::pair<TreeNode<T>*, int>(
+			    q.front().first->get_left(),
+			    (q.front().second - 1)));
+		if (q.front().first->get_right() != nullptr)
+			q.push(std::pair<TreeNode<T>*, int>(
+			    q.front().first->get_right(),
+			    (q.front().second + 1)));
 		q.pop();
 	}
 }

@@ -181,14 +181,22 @@ TEST(Tree, LevelOrderTraversal) {
 	ASSERT_EQ(root->get_right()->get(), 2);
 
 	std::array<int, 3> expectedvalues = {1, 0, 2};
+	std::array<int, 3> distances = {0, -1, 1};
 	std::queue<int> expected;
+	std::queue<int> expecteddistances;
 	for (auto v : expectedvalues)
 		expected.push(v);
-	level_traversal<int>(root, [&expected](TreeNode<int>* node) {
+	for (auto v : distances)
+		expecteddistances.push(v);
+	level_traversal<int>(root, [&expected, &expecteddistances](
+				       TreeNode<int>* node, int distance) {
 		ASSERT_EQ(expected.front(), node->get());
+		ASSERT_EQ(expecteddistances.front(), distance);
 		expected.pop();
+		expecteddistances.pop();
 	});
 	ASSERT_EQ(expected.size(), 0);
+	ASSERT_EQ(expecteddistances.size(), 0);
 	delete root;
 }
 
@@ -205,12 +213,21 @@ TEST(Tree, LevelOrderTraversal2) {
 
 	std::array<int, 15> expectedvalues = {1, 14, 3, 15, 2,  7, 4, 13,
 					      5, 10, 6, 8,  11, 9, 12};
+	std::array<int, 15> distances = {0, 1, 0, 2, -1, 1, 0, 2,
+					 1, 1, 2, 0, 2,  1, 3};
 	std::queue<int> expected;
+	std::queue<int> expecteddistances;
 	for (auto v : expectedvalues)
 		expected.push(v);
-	level_traversal<int>(nodes[0], [&expected](TreeNode<int>* node) {
+	for (auto v : distances)
+		expecteddistances.push(v);
+	level_traversal<int>(nodes[0], [&expected, &expecteddistances](
+					   TreeNode<int>* node, int distance) {
 		ASSERT_EQ(expected.front(), node->get());
 		expected.pop();
+		ASSERT_EQ(expecteddistances.front(), distance);
+		expecteddistances.pop();
 	});
 	ASSERT_EQ(expected.size(), 0);
+	ASSERT_EQ(expecteddistances.size(), 0);
 }
